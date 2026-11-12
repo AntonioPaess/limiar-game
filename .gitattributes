@@ -1,11 +1,35 @@
 * text=auto eol=lf
-# Binários. Git LFS ainda não instalado; ao instalar, trocar "binary" por "filter=lfs diff=lfs merge=lfs -text".
+
+# Binários como arquivos normais do git.
+# Git LFS está instalado mas DESLIGADO: o orçamento de LFS da conta GitHub está zerado e o push é recusado.
+# Para ligar depois de ajustar o orçamento: trocar "binary" por "filter=lfs diff=lfs merge=lfs -text"
+# e rodar `git add --renormalize .`.
+# Imagens / texturas
 *.png binary
 *.jpg binary
+*.jpeg binary
 *.webp binary
+*.tga binary
+*.exr binary
+*.hdr binary
+*.psd binary
+*.kra binary
+# Modelos 3D
 *.glb binary
+*.gltf binary
+*.fbx binary
+*.obj binary
 *.blend binary
+# Áudio
 *.wav binary
 *.ogg binary
+*.mp3 binary
+*.flac binary
+# Fontes
 *.ttf binary
 *.otf binary
+# Vídeo
+*.mp4 binary
+*.mov binary
+
+# Arquivos de texto do Godot ficam como texto (diff legível): .tscn .tres .gd .import .godot

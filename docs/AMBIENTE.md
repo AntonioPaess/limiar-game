@@ -123,7 +123,10 @@ Todas referenciam os documentos em vez de duplicá-los e mantêm a marcação `[
 1. Aprovar a execução de `uvx mcp-for-blender==2.2.8` (bloqueada pelo modo automático) e testar com o Blender aberto.
 2. Abrir uma nova sessão do Claude Code em `~/Developer/limiar-game`, aprovar os MCPs do projeto e rodar `/skills` e `/mcp`.
 3. Codex não está instalado nesta máquina; a configuração está pronta, mas não foi testada.
-4. Git LFS não instalado (`brew install git-lfs`) — necessário antes de versionar assets binários grandes.
+4. Git LFS 3.8.1 instalado, mas **desligado**: o GitHub recusou o push com "This repository exceeded its LFS
+   budget" (orçamento de LFS da conta zerado). Binários seguem como arquivos normais. Para ligar: ajustar o
+   orçamento em github.com/settings/billing/budgets e seguir as instruções no topo de `.gitattributes`.
+   Fazer isso antes de versionar assets grandes (o GitHub recusa arquivos acima de 100 MB fora do LFS).
 5. Disco: ~12 GB livres (98% usado). Blender + Godot + caches já ocupam espaço; recomendável liberar antes da produção de assets.
 6. Engine (ADR-003) e renderer Forward+ vs Compatibility continuam `[PROPOSTA]`; `project.godot` usa Forward+ provisoriamente.
 
