@@ -60,9 +60,12 @@ escolher 2–3 skills por tarefa; não carregue todas. As skills do projeto têm
 ## Validação antes de dizer "pronto"
 
 ```bash
-godot --headless --path . --import
-godot --headless --path . --script res://tests/smoke_headless.gd
+tests/run.sh   # import + suíte headless (tests/run_tests.gd) + smoke + 300 frames da cena principal
 ```
+
+Mudança visual: `godot --path . --script res://tests/visual/capture_views.gd -- --no-mouse-capture` e inspecionar
+`out/godot/views/*.png`. Autoloads em scripts que os testes carregam: use `get_node("/root/GameState")`, não o
+identificador global (não existe em `--script`).
 
 Tarefas visuais: render/screenshot inspecionado. Definition of Done: `08_PRODUCAO_ROADMAP.md` §5.
 Commits pequenos; nenhum co-autor de IA nas mensagens de commit.
