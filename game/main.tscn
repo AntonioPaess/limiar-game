@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://game/main.gd" id="1"]
+[ext_resource type="Script" path="res://game/ui/hud.gd" id="2"]
+[ext_resource type="Script" path="res://game/ui/pause_menu.gd" id="3"]
+[ext_resource type="Script" path="res://game/ui/debug_overlay.gd" id="4"]
+
+[sub_resource type="Environment" id="env"]
+background_mode = 1
+background_color = Color(0.067, 0.075, 0.106, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.5, 0.66, 1)
+ambient_light_energy = 0.9
+tonemap_mode = 3
+glow_enabled = true
+glow_intensity = 0.4
+glow_hdr_threshold = 1.2
+fog_enabled = true
+fog_light_color = Color(0.067, 0.075, 0.106, 1)
+fog_density = 0.012
+
+[sub_resource type="CameraAttributesPractical" id="cam_attr"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+camera_attributes = SubResource("cam_attr")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+script = ExtResource("2")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("3")
+
+[node name="DebugOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("4")
