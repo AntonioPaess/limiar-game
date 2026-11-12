@@ -15,3 +15,12 @@ ch1.proto.door.locked,A porta não cede.
 ch1.proto.candle.examine,Examinar
 ch1.proto.candle.text,"Uma vela apagada. A cera ainda está morna."
 ch1.proto.exit.reached,Fim do trecho cinza.
+ui.pause.resonance_intensity,Intensidade do efeito de Ressonância
+ui.resonance.ready,Ressonância
+ui.resonance.hint,[%s] Ressonância
+ch1.proto.echo.hospital.caption,[bipes regulares de um monitor cardíaco]
+ch1.proto.echo.monitors.caption,[dois monitores apitam; um está em silêncio]
+ch1.proto.candle.light,Acender vela
+ch1.proto.candle.snuff,Apagar vela
+ch1.proto.door.hint_candles,As velas desta sala parecem responder a algo que não está aqui.
+ch1.proto.puzzle.solved,Algo cede do outro lado da porta.

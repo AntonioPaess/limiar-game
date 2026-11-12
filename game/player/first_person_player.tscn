@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://game/player/first_person_player.gd" id="1"]
 [ext_resource type="Script" path="res://game/player/player_interaction.gd" id="2"]
 [ext_resource type="Resource" path="res://game/data/player/default_player_settings.tres" id="3"]
+[ext_resource type="Script" path="res://game/player/player_resonance.gd" id="4"]
 
 [sub_resource type="CapsuleShape3D" id="capsule"]
 radius = 0.35
@@ -34,3 +35,6 @@ collision_mask = 1
 
 [node name="PlayerInteraction" type="Node" parent="."]
 script = ExtResource("2")
+
+[node name="PlayerResonance" type="Node" parent="."]
+script = ExtResource("4")
