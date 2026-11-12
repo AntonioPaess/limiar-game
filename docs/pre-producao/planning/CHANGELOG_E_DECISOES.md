@@ -27,6 +27,18 @@
 
 **Decisão:** proposta técnica, não aprovada. **Motivação:** prototipagem ágil e distribuição desktop. **Trade-offs:** ferramentas e experiência da equipe podem favorecer Unity. **Revisar antes** de criar sistema permanente.
 
+### ADR-004 — Input, FOV e geração do graybox no protótipo cinza
+
+Data: 12/11/2026
+Status: proposta (aplicada no protótipo; revisar no G1)
+Contexto: LIM-002/010/011 precisavam de decisões pequenas e reversíveis para começar.
+Opções consideradas: input no `project.godot` x registrado em runtime; FOV vertical (padrão Godot) x horizontal; graybox à mão x gerado.
+Decisão: (1) ações no `project.godot`, geradas por `tools/godot/setup_input_map.gd`, teclas físicas (layout-independentes), todos os dispositivos; esquiva no Espaço enquanto pulo não for aprovado; ataque pesado adiado. (2) FOV em graus horizontais (`KEEP_WIDTH`), 80° padrão, 70–100°. (3) graybox CSG gerado por `tools/godot/build_graybox_cathedral.gd`.
+Motivo: input editável no editor e testável; FOV horizontal bate com a especificação do GDD §3; geração reproduzível enquanto o layout muda rápido.
+Consequências e riscos: editar a cena gerada à mão invalida o gerador; Espaço para esquiva conflita se pulo for aprovado.
+Como validar: playtest G1 (conforto de câmera, ergonomia de esquiva).
+Critério de revisão: pulo aprovado; reclamações de náusea/FOV; level designer assumir a cena no editor.
+
 ### Template de novas decisões
 
 ```

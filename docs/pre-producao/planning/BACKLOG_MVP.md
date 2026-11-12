@@ -4,29 +4,29 @@
 
 ## Épico 0 — Fundação
 
-**LIM-001 | Bootstrap do projeto [MUST]**
+**LIM-001 | Bootstrap do projeto [MUST]** — ✅ feito (branch `feat/prototipo-fps-graybox`): `game/main.tscn`, `README.md`, testes headless.
 - Criar projeto Godot em versão estável escolhida, README de setup, estrutura mínima, `.gitignore`, import settings e mapa inicial vazio.
 - Aceite: editor abre sem erros, cena `main` executa e há instruções reproduzíveis.
 
-**LIM-002 | Input centralizado [MUST]**
+**LIM-002 | Input centralizado [MUST]** — ✅ feito: 16 ações em `project.godot` (teclado/mouse + gamepad), sem conflitos (teste). Cursor capturado/liberado pela pausa: verificado só por código/teste, falta teste manual.
 - Mapear mover, olhar, interagir, atacar, defender/esquivar, Ressonância e pausar; gamepad em planejamento, com suporte básico se viável.
 - Aceite: nenhuma tecla crítica colide com outra; cursor capturado e liberado corretamente.
 
-**LIM-003 | Logging e diagnósticos [SHOULD]**
+**LIM-003 | Logging e diagnósticos [SHOULD]** — 🟡 parcial: overlay F3 (FPS, posição, velocidade, alvo); estados de combate/Ressonância quando existirem.
 - Criar modo debug com estados do player, flag de Ressonância e framerate.
 - Aceite: saída desativável em release sem console inundado.
 
 ## Épico 1 — Movimento e mundo
 
-**LIM-010 | Controlador FPS [MUST]**
+**LIM-010 | Controlador FPS [MUST]** — ✅ feito: movimento, olhar mouse/analógico, FOV 70–100° horizontal, head bob desligável. Sensação de câmera ainda **não validada por playtest humano**.
 - CharacterBody3D, aceleração, gravidade, olhar, colisão, FOV ajustável e input pausable.
 - Aceite: percorrer sala, olhar em todas direções, sem clipping e com opções de motion mínimas.
 
-**LIM-011 | Graybox da catedral [MUST]**
+**LIM-011 | Graybox da catedral [MUST]** — ✅ feito: Átrio → corredor (placeholder da parede de Eco) → sala de combate → porta → saída; spawn no chão e rota até a saída testados.
 - Átrio, corredor, sala de combate, parede de Eco e pequena saída; primitives e luzes simples.
 - Aceite: rota principal completa, marcos visuais e sem áreas de queda involuntária.
 
-**LIM-012 | Interação [MUST]**
+**LIM-012 | Interação [MUST]** — ✅ feito: raycast 2,5 m, prompt no HUD, porta (1 vez, flag de sessão) e vela examinável; alcance e resposta única testados.
 - Raycast, indicação de interação e objeto simples.
 - Aceite: detectar somente alvo válido no alcance, responder uma vez por pressionamento.
 
