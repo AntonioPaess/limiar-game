@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PlayerSettings" format=3]
+
+[ext_resource type="Script" path="res://game/player/player_settings.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+walk_speed = 4.2
+sprint_speed = 6.0
+acceleration = 30.0
+deceleration = 40.0
+air_control = 0.3
+fov_horizontal = 80.0
+mouse_sensitivity = 0.0025
+stick_sensitivity = 2.6
+invert_y = false
+max_pitch_deg = 85.0
+head_bob_enabled = true
+head_bob_amplitude = 0.025
+head_bob_frequency = 1.8
+interact_distance = 2.5

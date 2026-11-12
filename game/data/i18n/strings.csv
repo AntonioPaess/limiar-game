@@ -1,0 +1,17 @@
+keys,pt_BR
+ui.pause.title,Pausa
+ui.pause.resume,Continuar
+ui.pause.quit,Sair do jogo
+ui.pause.fov,Campo de visão (°)
+ui.pause.mouse_sensitivity,Sensibilidade do mouse
+ui.pause.stick_sensitivity,Sensibilidade do analógico
+ui.pause.head_bob,Balanço da câmera ao andar
+ui.pause.invert_y,Inverter eixo vertical
+ui.pause.hint,Esc ou Start para voltar
+ui.prompt.format,[%s] %s
+ui.click_to_play,Clique para jogar
+ch1.proto.door.open,Abrir porta
+ch1.proto.door.locked,A porta não cede.
+ch1.proto.candle.examine,Examinar
+ch1.proto.candle.text,"Uma vela apagada. A cera ainda está morna."
+ch1.proto.exit.reached,Fim do trecho cinza.
