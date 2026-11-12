@@ -39,6 +39,18 @@ Consequências e riscos: editar a cena gerada à mão invalida o gerador; Espaç
 Como validar: playtest G1 (conforto de câmera, ergonomia de esquiva).
 Critério de revisão: pulo aprovado; reclamações de náusea/FOV; level designer assumir a cena no editor.
 
+### ADR-005 — Leitura de Ressonância localizada e puzzle-placeholder das velas
+
+Data: 12/11/2026
+Status: proposta (aplicada no protótipo; revisar no G1/G2)
+Contexto: LIM-020/022 exigem Leitura gratuita que revele pista obrigatória sem duplicar mapa, e um puzzle resolvível por observação + Ressonância.
+Opções consideradas: trocar cenas/sub-mapas inteiros; shader global de pós-processo; alternar nós selecionados por alvo.
+Decisão: `ResonanceTarget` (dados em `ResonanceTargetData`) alterna só nós escolhidos: Véu fica translúcido (`GeometryInstance3D.transparency`), Eco aparece com fade de 0,6 s, luzes do Eco sobem; **colisão nunca muda** na Leitura. Leitura = toque em R, raio 9 m, 5 s, cooldown 1,5 s, custo 0. Véu de tela violeta com intensidade ajustável (0 desliga). Puzzle-placeholder: 3 candelabros cujo padrão correto = monitores ligados no Eco da sala; dicas graduais na porta.
+Motivo: barato (sem materiais duplicados, sem cena extra), seguro (sem prender o jogador em parede), testável; puzzle exercita observação + Ressonância + flag persistida.
+Consequências e riscos: transparência por instância tem custo de ordenação em cenas grandes (medir no art proof); o puzzle das velas não é o P1/P2 do Level Design e pode ser descartado; a regra "monitor ligado = vela acesa" pode não ser óbvia sem playtest.
+Como validar: playtest G2 (o jogador entende a Leitura sem texto? deduz o padrão?); profiler com 10+ alvos.
+Critério de revisão: jogadores não ligarem monitor ↔ vela; queda de FPS na transição; Intervenção (LIM-021) exigir mudar colisão (só alvos `bridge` autorizados).
+
 ### Template de novas decisões
 
 ```

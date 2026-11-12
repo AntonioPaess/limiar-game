@@ -25,18 +25,23 @@ godot --editor --path .      # abre no editor
 | Olhar | mouse | analógico direito |
 | Correr | Shift | L3 |
 | Interagir | E | X / Quadrado |
+| Ressonância (Leitura) | R | LB |
 | Pausa e opções | Esc | Start |
 | Overlay de debug | F3 | — |
 
 Já mapeados para os próximos incrementos (ainda sem efeito): ataque leve (botão esquerdo / RT), defesa (botão
-direito / LT), esquiva (Espaço / B), Ressonância (R / LB).
+direito / LT), esquiva (Espaço / B). A Intervenção (segurar R, custa Pulso) vem com o Vigia.
 
-A pausa tem FOV (70–100°, horizontal), sensibilidade de mouse e analógico, inverter eixo Y e balanço de câmera.
+A pausa tem FOV (70–100°, horizontal), sensibilidade de mouse e analógico, inverter eixo Y, balanço de câmera e
+intensidade do efeito de Ressonância.
 
 ## O trecho cinza
 
-Átrio → corredor (a parede violeta é o lugar onde a Ressonância vai revelar o primeiro Eco) → sala de combate
-(colunas como cobertura, ainda sem inimigo) → porta de cobre (interagir) → saída.
+Átrio → corredor (uma fissura na parede: aperte **R** perto dela para ver o primeiro Eco) → sala de combate (colunas
+como cobertura, ainda sem inimigo; três candelabros) → porta de cobre trancada → saída.
+
+**Spoiler do puzzle-placeholder:** a Leitura na sala mostra monitores sobre os candelabros; acenda as velas onde o
+monitor está ligado (traço em zigue-zague) e deixe apagada onde a linha é reta.
 
 ## Testes
 

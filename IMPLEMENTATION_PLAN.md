@@ -17,6 +17,15 @@ Engine: Godot 4.7.2 + GDScript (ADR-003 ainda `[PROPOSTA]`: o protótipo cinza s
 
 **Fora deste incremento:** combate, Ressonância, Vigia, puzzle, save em disco, áudio, arte final, pixelização.
 
+## Incremento 2 — "ver o que não está lá" (branch `feat/ressonancia-leitura`, empilhada no incremento 1)
+
+| Item | Entrega | Critério de aceite | Teste |
+|---|---|---|---|
+| LIM-020 | `ResonanceTarget` + `ResonanceTargetData`, `PlayerResonance` (toque em R), HUD (estado + véu ajustável), legendas, sons sintetizados, dica contextual | pista obrigatória revelada sem Pulso e sem duplicar mapa; spam de R não repete evento | alcance, custo 0, cooldown, flag 1×, colisão intacta, dica; capturas antes/depois |
+| LIM-022 | Puzzle-placeholder das velas `[PROPOSTA]`: 3 candelabros, padrão nos monitores do Eco, porta trancada com dicas graduais | resolvível por observação + Ressonância; persiste em sessão; falha não punitiva | estados, padrão errado/certo, não retranca, persistência após recarga |
+
+**Fora:** Intervenção/Pulso (LIM-021, junto com o Vigia), Diário de Ecos (LIM-040), save em disco.
+
 ## Arquitetura deste incremento
 
 ```

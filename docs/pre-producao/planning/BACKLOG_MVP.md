@@ -32,7 +32,7 @@
 
 ## Épico 2 — Ressonância
 
-**LIM-020 | Leitura básica [MUST]**
+**LIM-020 | Leitura básica [MUST]** — ✅ feito (branch `feat/ressonancia-leitura`): toque em R revela alvos num raio de 9 m por 5 s, custo 0, cooldown 1,5 s; fissura do corredor revela vislumbre clínico sem duplicar mapa (transparência por instância, colisão intacta); legenda do som; dica contextual. Testado headless + capturas antes/depois.
 - Toque de tecla para revelar objeto/corredor hospitalar localizado por tempo limitado, com VFX/áudio placeholder.
 - Aceite: pista obrigatória pode ser revelada independentemente de Pulso e sem duplicar mapa.
 
@@ -40,7 +40,7 @@
 - Alvo opcional de intervenção com custo e efeito (ex.: debuff temporário no Vigia).
 - Aceite: consome Pulso uma vez, tem cooldown e nunca afeta alvo errado.
 
-**LIM-022 | Puzzle com flag [MUST]**
+**LIM-022 | Puzzle com flag [MUST]** — ✅ feito como placeholder de mecânica `[PROPOSTA]`: 3 candelabros (acesa/apagada), padrão revelado pelos monitores do Eco; porta trancada com dicas graduais; `ch1.puzzle.candles_solved` persiste em sessão. Clareza do puzzle **não validada por playtest**.
 - Dois ou três estados, pistas graduais e porta que abre.
 - Aceite: resolver por observação+Ressonância; progressão persistida em sessão.
 
