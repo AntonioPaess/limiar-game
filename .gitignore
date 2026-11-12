@@ -1,0 +1,13 @@
+# Godot
+.godot/
+*.translation
+export/
+# Saídas locais de testes/renders (regeráveis)
+out/
+# Update temporário do toolkit MCP
+addons/.godot_mcp_toolkit_update/
+# macOS
+.DS_Store
+# Blender
+*.blend1
+*.blend@

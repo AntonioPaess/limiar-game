@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "godot": {
+      "command": "npx",
+      "args": ["-y", "@npgamedev/godot-mcp-server@1.1.2"],
+      "env": {}
+    },
+    "blender": {
+      "command": "uvx",
+      "args": ["mcp-for-blender==2.2.8"],
+      "env": {
+        "BLENDER_MCP_DISABLE_TELEMETRY": "1",
+        "DISABLE_TELEMETRY": "true"
+      }
+    }
+  }
+}
