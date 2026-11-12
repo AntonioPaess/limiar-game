@@ -1,37 +1,59 @@
-## Porta simples do protótipo: abre girando sobre a dobradiça quando o Interactable filho é usado.
+## Porta do protótipo: abre girando sobre a dobradiça quando o Interactable filho é usado.
+## Pode começar trancada (puzzle). Trancada, a interação é aceita mas só informa ("A porta não cede.").
 ## O estado aberto é persistido em sessão por uma flag estável (ex.: ch1.proto.door_exit_open).
 class_name Door
 extends Node3D
 
 signal opened
+signal locked_attempt(count: int)
 
 @export var open_angle_deg := 100.0
 @export var open_time := 0.8
 @export var state_flag: StringName = &""
+@export var locked := false
+@export var locked_message_key := "ch1.proto.door.locked"
 
 var is_open := false
+var locked_attempts := 0
 
 @onready var _interactable: Interactable = $Interactable
 
 
 func _ready() -> void:
-	_interactable.once = true
+	_interactable.once = false  # várias tentativas enquanto trancada; abrir desliga o interagível
 	_interactable.used.connect(_on_used)
+	_refresh_message()
 	if state_flag != &"" and _state().has_flag(state_flag):
 		# já aberta nesta sessão (ex.: recarga de checkpoint): aplica o estado sem animar
 		is_open = true
+		locked = false
 		_interactable.enabled = false
 		rotation.y += deg_to_rad(open_angle_deg)
 
 
+func unlock() -> void:
+	locked = false
+	_refresh_message()
+
+
+func _refresh_message() -> void:
+	_interactable.message_key = locked_message_key if locked else ""
+
+
 func _on_used(_actor: Node) -> void:
+	if locked:
+		locked_attempts += 1
+		locked_attempt.emit(locked_attempts)
+		return
 	open()
 
 
+## Abre a porta (também usado por scripts/testes). Ignora o trancamento de propósito: quem chama decide.
 func open() -> void:
 	if is_open:
 		return
 	is_open = true
+	locked = false
 	_interactable.enabled = false
 	if state_flag != &"":
 		_state().set_flag(state_flag, true)

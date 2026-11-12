@@ -92,6 +92,9 @@ func _build() -> void:
 	box.add_child(_check("ui.pause.invert_y",
 		func() -> bool: return settings.invert_y,
 		func(v: bool) -> void: settings.invert_y = v))
+	box.add_child(_slider_row("ui.pause.resonance_intensity", 0.0, 1.0, 0.05,
+		func() -> float: return settings.resonance_effect_intensity,
+		func(v: float) -> void: settings.resonance_effect_intensity = v))
 	box.add_child(_check("ui.pause.head_bob",
 		func() -> bool: return settings.head_bob_enabled,
 		func(v: bool) -> void: settings.head_bob_enabled = v))

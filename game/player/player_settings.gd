@@ -40,6 +40,11 @@ const FOV_MAX := 100.0
 		emit_changed()
 @export var head_bob_amplitude := 0.025  ## metros (mínimo, GDD §3)
 @export var head_bob_frequency := 1.8  ## ciclos por metro percorrido
+## Intensidade do véu violeta de tela durante a Ressonância (0 = desligado). O Eco no mundo continua visível.
+@export_range(0.0, 1.0, 0.05) var resonance_effect_intensity := 1.0:
+	set(v):
+		resonance_effect_intensity = clampf(v, 0.0, 1.0)
+		emit_changed()
 
 @export_group("Interação")
 @export var interact_distance := 2.5  ## metros

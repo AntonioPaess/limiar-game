@@ -1,4 +1,4 @@
-## Runner headless do protótipo (09 QA: MOV-01, INP-01, INT-01, CAM-01 parcial). Sai com 1 se qualquer teste falhar.
+## Runner headless do protótipo (09 QA: MOV-01, INP-01, INT-01, CAM-01 parcial, RES-01, RES-02, PUZ-01, NAR-01). Sai com 1 se qualquer teste falhar.
 ## godot --headless --path . --import && godot --headless --path . --script res://tests/run_tests.gd
 extends SceneTree
 
@@ -19,6 +19,8 @@ func _initialize() -> void:
 		_run(t)
 	# integração (cena principal)
 	for t: String in ["test_spawn_on_floor", "test_walk_forward", "test_interaction_range_and_door",
+			"test_puzzle_states", "test_resonance_reveals_in_range_for_free", "test_resonance_flag_and_event_once",
+			"test_resonance_keeps_collision", "test_resonance_contextual_hint",
 			"test_exit_trigger_sets_flag", "test_pause_blocks_input"]:
 		await _run_async(t)
 	print("\n[tests] %d ok, %d falha(s)" % [passed, failed])
@@ -191,6 +193,7 @@ func test_interaction_range_and_door() -> bool:
 	var main := await _load_main()
 	var interaction: PlayerInteraction = main.player.get_node("PlayerInteraction")
 	var door: Door = main.world.get_node("Interactables/ExitDoor")
+	var puzzle: CandlePatternPuzzle = main.world.get_node("Interactables/PuzzleVelas")
 	# longe da porta (4 m): nada em foco
 	_place(main.player, Vector3(0, 0.05, -38.0), 0.0)
 	await _frames(5)
@@ -201,12 +204,133 @@ func test_interaction_range_and_door() -> bool:
 	check(interaction.current_target != null and interaction.current_target.get_parent() == door,
 		"no alcance foca a porta")
 	check(main.hud.current_prompt().contains("Abrir porta"), "HUD mostra o prompt '%s'" % main.hud.current_prompt())
+	# trancada: tentativa aceita, mas só informa; 2ª tentativa dá a dica (não punitivo)
+	check(interaction.try_interact() == true and not door.is_open, "trancada: porta não abre")
+	check(main.hud.current_message() == "A porta não cede.", "1ª tentativa: '%s'" % main.hud.current_message())
+	interaction.try_interact()
+	check(main.hud.current_message().contains("velas"), "2ª tentativa: dica gradual sobre as velas")
+	check(main.hud.current_hint().contains("Ressonância"), "2ª tentativa: lembra a tecla da Ressonância")
+	# resolve o puzzle e abre
+	_solve_puzzle(main)
+	check(puzzle.is_solved and not door.locked, "padrão correto destranca a porta")
 	check(interaction.try_interact() == true, "interagir abre a porta")
 	check(interaction.try_interact() == false, "segunda tentativa não faz nada (1 resposta por ação)")
 	check(door.is_open, "porta marcada como aberta")
 	check(game_state.has_flag(&"ch1.proto.door_exit_open"), "flag de sessão gravada")
 	await _frames(5)
 	check(main.hud.current_prompt() == "", "prompt some após abrir")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func _solve_puzzle(main: Main) -> void:
+	var puzzle: CandlePatternPuzzle = main.world.get_node("Interactables/PuzzleVelas")
+	for i in puzzle.candelabra.size():
+		(puzzle.get_node(puzzle.candelabra[i]) as Candelabrum).set_lit(puzzle.solution[i])
+
+
+func test_puzzle_states() -> bool:
+	var main := await _load_main()
+	var puzzle: CandlePatternPuzzle = main.world.get_node("Interactables/PuzzleVelas")
+	var door: Door = main.world.get_node("Interactables/ExitDoor")
+	var candles: Array[Candelabrum] = []
+	for p in puzzle.candelabra:
+		candles.append(puzzle.get_node(p))
+	check(candles.size() == 3 and puzzle.solution.size() == 3, "3 candelabros, solução de 3 estados")
+	check(door.locked and not puzzle.is_solved, "começa em repouso, porta trancada")
+	for c in candles:
+		c.set_lit(true)
+	check(not puzzle.is_solved and door.locked, "padrão errado (todas acesas) não destranca")
+	_solve_puzzle(main)
+	check(puzzle.is_solved and game_state.has_flag(&"ch1.puzzle.candles_solved"), "padrão certo resolve e grava a flag")
+	candles[0].set_lit(not candles[0].lit)
+	check(puzzle.is_solved and not door.locked, "mexer nas velas depois não volta a trancar")
+	main.queue_free()
+	await process_frame
+	# recarga da cena na mesma sessão: estado resolvido persiste
+	var again := await _load_main()
+	var p2: CandlePatternPuzzle = again.world.get_node("Interactables/PuzzleVelas")
+	var d2: Door = again.world.get_node("Interactables/ExitDoor")
+	check(p2.is_solved and not d2.locked, "resolvido persiste em sessão (recarga)")
+	again.queue_free()
+	await process_frame
+	return true
+
+
+func test_resonance_reveals_in_range_for_free() -> bool:
+	var main := await _load_main()
+	var res: PlayerResonance = main.player.get_node("PlayerResonance")
+	var wall: ResonanceTarget = main.world.get_node("Resonance/Res_ParedeHospital")
+	var echo: Node3D = main.world.get_node("EcoLayers/Eco_Hospital")
+	check(wall.data.read_cost == 0, "pista crítica com custo 0 (RES-02)")
+	check(not echo.visible, "Eco escondido no Véu")
+	# longe (spawn, ~17 m): Leitura acontece mas não alcança a parede
+	await _frames(5)
+	check(res.try_read(), "Leitura executa no spawn")
+	check(not wall.is_revealed, "fora do raio: parede não revela")
+	res._process(10.0)
+	res._process(10.0)
+	check(res.state == PlayerResonance.State.READY, "volta a ficar pronta após ativa + cooldown")
+	# perto da fissura
+	_place(main.player, Vector3(0, 0.05, -18.5), -90.0)
+	await _frames(3)
+	check(res.try_read(), "Leitura executa perto da fissura")
+	check(wall.is_revealed and echo.visible, "Eco do corredor clínico aparece (RES-01)")
+	check(game_state.has_flag(&"ch1.echo.hospital_glimpse_seen"), "flag do vislumbre gravada")
+	check(not res.try_read(), "apertar de novo durante a Leitura não gera nova Leitura")
+	wall._process(wall.data.read_duration_sec + 0.1)
+	check(not wall.is_revealed, "Eco some depois da duração")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_resonance_flag_and_event_once() -> bool:
+	var main := await _load_main()
+	var res: PlayerResonance = main.player.get_node("PlayerResonance")
+	var count := [0]
+	game_state.narrative_flag_changed.connect(func(id: StringName, _v: Variant) -> void:
+		if id == &"ch1.echo.hospital_glimpse_seen":
+			count[0] += 1)
+	_place(main.player, Vector3(0, 0.05, -18.5), -90.0)
+	await _frames(3)
+	for i in 3:
+		res.try_read()
+		res._process(10.0)
+		res._process(10.0)
+	check(res.reads_done == 3, "3 Leituras feitas")
+	check(count[0] == 1, "flag e evento do vislumbre disparam 1 vez (NAR-01), obtido %d" % count[0])
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_resonance_keeps_collision() -> bool:
+	var main := await _load_main()
+	var res: PlayerResonance = main.player.get_node("PlayerResonance")
+	var wall: CSGBox3D = main.world.get_node("Geometry/B_Corredor/EcoWall")
+	_place(main.player, Vector3(0.6, 0.05, -19.0), 0.0)
+	await _frames(3)
+	res.try_read()
+	check(wall.use_collision, "parede continua sólida durante o Eco")
+	Input.action_press("move_right")
+	await _frames(60)
+	Input.action_release("move_right")
+	check(main.player.global_position.x < 1.5, "jogador não atravessa a parede revelada (x=%.2f)" % main.player.global_position.x)
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_resonance_contextual_hint() -> bool:
+	var main := await _load_main()
+	var res: PlayerResonance = main.player.get_node("PlayerResonance")
+	_place(main.player, Vector3(0, 0.05, -18.5), 0.0)
+	await _frames(10)
+	check(main.hud.current_hint().contains("Ressonância"), "dica contextual perto da fissura: '%s'" % main.hud.current_hint())
+	res.try_read()
+	check(main.hud.current_hint() == "", "dica some ao usar a Ressonância")
 	main.queue_free()
 	await process_frame
 	return true

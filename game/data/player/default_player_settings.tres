@@ -17,4 +17,5 @@ max_pitch_deg = 85.0
 head_bob_enabled = true
 head_bob_amplitude = 0.025
 head_bob_frequency = 1.8
+resonance_effect_intensity = 1.0
 interact_distance = 2.5
