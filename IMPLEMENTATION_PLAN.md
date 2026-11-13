@@ -26,6 +26,16 @@ Engine: Godot 4.7.2 + GDScript (ADR-003 ainda `[PROPOSTA]`: o protótipo cinza s
 
 **Fora:** Intervenção/Pulso (LIM-021, junto com o Vigia), Diário de Ecos (LIM-040), save em disco.
 
+## Incremento 3 — "ameaça legível" (branch `feat/combate-vigia`, empilhada no incremento 2)
+
+| Item | Entrega | Teste |
+|---|---|---|
+| LIM-030 | `AttackData`, `DamageEvent`, `Health`, `Melee` (cone + linha de visão), `PlayerCombat`, espada FPP | 1 dano por golpe; bloqueio frontal |
+| LIM-031 | guarda, aparo (janela 0,25 s), esquiva com i-frames | aparo/guarda/sem guarda; esquiva não atravessa parede; sem softlock |
+| LIM-032 | Vigia: detectar, aproximar, anunciar, varrido/avanço, recuperação, atordoado, morte | anuncia antes de golpear; vencível sem aparo (5 golpes pelas costas) |
+| LIM-021 | Intervenção (segurar R) na fissura revelada, 30 de Pulso | sem Leitura não gasta; custo 1×; cooldown; sem Pulso; mira errada |
+| LIM-041/050 | HUD vida/Pulso, borda de dano, morte → checkpoint, hit-stop desligável | respawn preserva flags; Vigia reinicia; hit-stop restaura tempo |
+
 ## Arquitetura deste incremento
 
 ```
