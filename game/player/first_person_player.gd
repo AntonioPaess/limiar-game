@@ -7,6 +7,11 @@ extends CharacterBody3D
 
 ## Quando falso o jogador ignora input (pausa, cutscene). Física/gravidade continuam.
 var input_enabled := true
+## Definido pelo combate (guarda/ataque deixam mais lento; morto = 0). Correr só vale com 1.0.
+var speed_multiplier := 1.0
+
+var _dash_velocity := Vector3.ZERO
+var _dash_time := 0.0
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 var _bob_phase := 0.0
@@ -50,6 +55,13 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
 
+	if _dash_time > 0.0:  # esquiva: velocidade horizontal fixa, sem controle durante o impulso
+		_dash_time -= delta
+		velocity.x = _dash_velocity.x
+		velocity.z = _dash_velocity.z
+		move_and_slide()
+		return
+
 	var wish := Vector3.ZERO
 	var target_speed := settings.walk_speed
 	if input_enabled:
@@ -60,8 +72,9 @@ func _physics_process(delta: float) -> void:
 		wish = (transform.basis * Vector3(move.x, 0.0, move.y))
 		wish.y = 0.0
 		wish = wish.limit_length(1.0)
-		if Input.is_action_pressed("sprint"):
+		if Input.is_action_pressed("sprint") and speed_multiplier >= 1.0:
 			target_speed = settings.sprint_speed
+		target_speed *= speed_multiplier
 
 	var accel := settings.acceleration if wish != Vector3.ZERO else settings.deceleration
 	if not is_on_floor():
@@ -83,6 +96,16 @@ func _update_head_bob(delta: float) -> void:
 		head.position.y = _head_base_y + sin(_bob_phase) * settings.head_bob_amplitude
 	else:
 		head.position.y = move_toward(head.position.y, _head_base_y, delta * 0.25)
+
+
+## Impulso de esquiva (chamado pelo PlayerCombat). Colisão continua valendo: não atravessa paredes (COM-02).
+func start_dash(horizontal_velocity: Vector3, duration: float) -> void:
+	_dash_velocity = Vector3(horizontal_velocity.x, 0.0, horizontal_velocity.z)
+	_dash_time = duration
+
+
+func is_dashing() -> bool:
+	return _dash_time > 0.0
 
 
 ## Velocidade horizontal se aproximando de `wish_dir * target_speed` com aceleração limitada (lógica pura, testável).
