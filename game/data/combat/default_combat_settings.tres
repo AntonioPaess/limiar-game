@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CombatSettings" format=3]
+
+[ext_resource type="Script" path="res://game/combat/combat_settings.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+parry_window_sec = 0.25
+guard_damage_taken = 0.25
+guard_arc_deg = 140.0
+parry_pulse_gain = 20.0
+guard_move_multiplier = 0.5
+dodge_distance = 3.6
+dodge_time = 0.24
+dodge_iframes = 0.22
+dodge_recovery = 0.2
+dodge_cooldown = 0.35
+attack_move_multiplier = 0.45
+hit_reaction_sec = 0.25
+input_buffer_sec = 0.15

@@ -36,7 +36,7 @@
 - Toque de tecla para revelar objeto/corredor hospitalar localizado por tempo limitado, com VFX/áudio placeholder.
 - Aceite: pista obrigatória pode ser revelada independentemente de Pulso e sem duplicar mapa.
 
-**LIM-021 | Intervenção [MUST]**
+**LIM-021 | Intervenção [MUST]** — ✅ feito (branch `feat/combate-vigia`): segurar R (0,35 s) sobre a fissura do escudo **revelada** pela Leitura, na mira, ≤7 m; custa 30 de Pulso uma vez, cooldown 3 s; atordoa o Vigia 3 s e expõe (dano ×1,5). Sem alvo/Pulso: recusa sem gastar; mira na parede não afeta nada (testado).
 - Alvo opcional de intervenção com custo e efeito (ex.: debuff temporário no Vigia).
 - Aceite: consome Pulso uma vez, tem cooldown e nunca afeta alvo errado.
 
@@ -46,15 +46,15 @@
 
 ## Épico 3 — Combate
 
-**LIM-030 | Espada e hit detection [MUST]**
+**LIM-030 | Espada e hit detection [MUST]** — ✅ feito: ataque leve (windup 0,12/ativo 0,12/recuperação 0,28 s, 12 de dano) por cone + linha de visão; `attack_instance_id` garante 1 dano por golpe por alvo (testado). Espada FPP placeholder com poses por estado.
 - Ataque leve, janela de golpe, reação e cooldown parametrizados.
 - Aceite: cada swing causa no máximo um dano por inimigo, sem hits fantasma.
 
-**LIM-031 | Defesa/esquiva [MUST]**
+**LIM-031 | Defesa/esquiva [MUST]** — ✅ feito: guarda frontal (25% do dano passa), aparo nos primeiros 0,25 s da guarda (0 dano, +20 Pulso, atordoa), esquiva 3,6 m com i-frames 0,22 s que não atravessa parede. Janelas `[VALIDAR]` por playtest.
 - Mecânica alternativa de sobrevivência com telegraph legível.
 - Aceite: jogador consegue evitar ataque do Vigia sem timing de parry perfeito.
 
-**LIM-032 | Vigia comum [MUST]**
+**LIM-032 | Vigia comum [MUST]** — ✅ feito: idle → detectar (linha de visão, 11 m) → aproximar → anunciar (forma + som distintos) → varrido 20 / avanço 25 → recuperação lenta (abertura) → atordoado → morte (flag). Escudo bloqueia frente; vencível só pelas costas em 5 golpes, sem aparo (testado). Navegação é direta (sem navmesh): pode enroscar em colunas.
 - Idle, detectar, aproximar, anunciar ataque, atacar, recuperar, reagir, morrer.
 - Aceite: encontro 1v1 completável e não impede saída por bug.
 
@@ -68,7 +68,7 @@
 - Registro com frase/áudio curto + objeto visual sem revelar lore não aprovado.
 - Aceite: atualização de diário/flag, evidência recuperável, sem texto expositivo excessivo.
 
-**LIM-041 | HUD e menus [MUST]**
+**LIM-041 | HUD e menus [MUST]** — 🟡 parcial: vida, Pulso, Ressonância, prompt, legendas, pausa com opções (FOV, sensibilidades, inverter Y, head bob, hit-stop, intensidade da Ressonância). Falta menu principal.
 - Vida, Pulso, Ressonância, pausa, opções básicas, feedback de hit.
 - Aceite: legível com pixelização do mundo desligada ou ligada.
 
@@ -78,7 +78,7 @@
 
 ## Épico 5 — Qualidade
 
-**LIM-050 | Checkpoint e retorno [MUST]**
+**LIM-050 | Checkpoint e retorno [MUST]** — ✅ feito em sessão: ponto de retorno antes da galeria; morrer escurece e volta com vida cheia, flags/puzzles preservados, Vigia não derrotado reinicia (testado). Save em disco: etapa seguinte.
 - Recomeçar do checkpoint no protótipo; persistência em disco numa fase seguinte.
 - Aceite: sem softlocks após morte ou puzzle.
 

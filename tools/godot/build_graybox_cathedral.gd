@@ -109,9 +109,14 @@ func _build_markers() -> void:
 	spawn.position = Vector3(0, 0.05, -2)  # olhando para -Z: a porta do átrio fica à vista
 	m.add_child(spawn)
 	var combat := Marker3D.new()
-	combat.name = "VigiaSpawn_Placeholder"  # LIM-032
-	combat.position = Vector3(0, 0, -36)
+	combat.name = "VigiaSpawn"  # LIM-032: Vigia comum guarda a galeria, de frente para a entrada
+	combat.position = Vector3(0, 0.05, -35)
+	combat.rotation.y = PI
 	m.add_child(combat)
+	var cp := Marker3D.new()
+	cp.name = "Checkpoint_Galeria"  # retorno antes do encontro (GDD §8: checkpoints curtos antes de lutas)
+	cp.position = Vector3(0, 0.05, -23.5)
+	m.add_child(cp)
 
 
 func _build_interactables() -> void:
@@ -141,6 +146,20 @@ func _build_interactables() -> void:
 	g.add_child(door)
 	_interactable(door, "Interactable", Vector3(1, 1.5, 0), Vector3(1.96, 3, 0.2), C_DOOR,
 		&"ch1.proto.door_exit", "ch1.proto.door.open", "")
+
+	var cpa := Area3D.new()
+	cpa.name = "CheckpointArea_Galeria"
+	cpa.position = Vector3(0, 1, -23.5)
+	cpa.collision_layer = 0
+	cpa.collision_mask = 2
+	cpa.set_meta("checkpoint_marker", "Markers/Checkpoint_Galeria")
+	var cps := CollisionShape3D.new()
+	cps.name = "Shape"
+	var cpb := BoxShape3D.new()
+	cpb.size = Vector3(3, 2, 2)
+	cps.shape = cpb
+	cpa.add_child(cps)
+	g.add_child(cpa)
 
 	var exit := Area3D.new()
 	exit.name = "ExitTrigger"

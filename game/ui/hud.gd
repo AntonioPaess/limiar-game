@@ -14,6 +14,10 @@ var _res_label: Label
 var _veil: ColorRect
 var _veil_tween: Tween
 var _hint: Label
+var _health_bar: ProgressBar
+var _pulse_bar: ProgressBar
+var _damage_edge: ColorRect
+var _fade: ColorRect
 
 
 func _ready() -> void:
@@ -56,6 +60,26 @@ func _ready() -> void:
 	root.add_child(_veil)
 	root.move_child(_veil, 0)
 
+	# vida e Pulso: compactos (06 §4), com rótulo de texto
+	var stats := VBoxContainer.new()
+	stats.name = "Stats"
+	stats.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	stats.position = Vector2(24, -150)
+	stats.custom_minimum_size = Vector2(180, 0)
+	stats.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(stats)
+	_health_bar = _bar(stats, tr("ui.hud.health"), Color("#9E393E"))
+	_pulse_bar = _bar(stats, tr("ui.hud.pulse"), Color("#69465A").lightened(0.35))
+
+	_damage_edge = ColorRect.new()
+	_damage_edge.name = "DamageEdge"
+	_damage_edge.color = Color("#4a0f14")
+	_damage_edge.modulate.a = 0.0
+	_damage_edge.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_damage_edge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(_damage_edge)
+	root.move_child(_damage_edge, 1)
+
 	# indicador: texto + barra (estado legível sem depender de cor)
 	var res := VBoxContainer.new()
 	res.name = "Resonance"
@@ -83,8 +107,59 @@ func _ready() -> void:
 	_hint.size = Vector2(600, 30)
 	_hint.modulate = Color(1, 1, 1, 0.85)
 	root.add_child(_hint)
+	_fade = ColorRect.new()
+	_fade.name = "Fade"
+	_fade.color = Color.BLACK
+	_fade.modulate.a = 0.0
+	_fade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(_fade)
 	set_prompt("")
 	set_resonance_state(0, 1.0)
+
+
+func _bar(parent: Control, label_text: String, color: Color) -> ProgressBar:
+	var l := _label("Label", 13)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	l.text = label_text
+	parent.add_child(l)
+	var b := ProgressBar.new()
+	b.custom_minimum_size = Vector2(180, 8)
+	b.show_percentage = false
+	b.max_value = 1.0
+	b.value = 1.0
+	b.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = color
+	b.add_theme_stylebox_override("fill", fill)
+	parent.add_child(b)
+	return b
+
+
+func set_health(ratio: float) -> void:
+	_health_bar.value = ratio
+
+
+func set_pulse(ratio: float) -> void:
+	_pulse_bar.value = ratio
+
+
+func health_value() -> float:
+	return _health_bar.value
+
+
+## Borda escura avermelhada ao sofrer dano: escura e curta (sem flash de luminância, 06 §5).
+func flash_damage(strength: float) -> void:
+	var tw := create_tween()
+	_damage_edge.modulate.a = clampf(0.12 + strength * 0.25, 0.0, 0.35)
+	tw.tween_property(_damage_edge, "modulate:a", 0.0, 0.5)
+
+
+## Escurece/clareia a tela (morte e retorno). Retorna o tween para quem quiser esperar.
+func fade_to(alpha: float, sec: float) -> Tween:
+	var tw := create_tween()
+	tw.tween_property(_fade, "modulate:a", alpha, sec)
+	return tw
 
 
 func _label(n: String, font_size: int) -> Label:

@@ -51,6 +51,18 @@ Consequências e riscos: transparência por instância tem custo de ordenação 
 Como validar: playtest G2 (o jogador entende a Leitura sem texto? deduz o padrão?); profiler com 10+ alvos.
 Critério de revisão: jogadores não ligarem monitor ↔ vela; queda de FPS na transição; Intervenção (LIM-021) exigir mudar colisão (só alvos `bridge` autorizados).
 
+### ADR-006 — Combate do protótipo: detecção por cone, escudo frontal e Intervenção na fissura revelada
+
+Data: 12/11/2026
+Status: proposta (aplicada no protótipo; revisar no G1)
+Contexto: LIM-021/030/031/032 pedem combate deliberado, legível em FPS, vencível sem aparo perfeito, e um uso da Ressonância em combate.
+Opções consideradas: hitbox Area3D animada; raycast único; consulta de esfera + filtro de cone + linha de visão.
+Decisão: consulta de esfera + cone + linha de visão (`Melee`), dano deduplicado por `attack_instance_id` no atacante e no `Health`. Vigia com escudo frontal (120°) que bloqueia; vulnerável pelas costas, na recuperação lenta e atordoado. Dois golpes alternados (varrido/avanço) com anúncio por forma + som. Intervenção = segurar R sobre a fissura do escudo já revelada pela Leitura (Toque lê, segurar intervém), 30 de Pulso. Pulso inicial 40, +20 por aparo, recarga mínima no checkpoint. Hit-stop curto desligável; sem tremor de câmera.
+Motivo: determinístico e testável headless; ensina defesa × evasão; liga Leitura → Intervenção num gesto só (pilar 1: mecânica e tema inseparáveis).
+Consequências e riscos: sem navmesh o Vigia pode enroscar em colunas; tempos e danos são palpite até playtest; espada/Vigia são formas placeholder.
+Como validar: playtest G1 (mortes por encontro, motivo percebido, se alguém usa a Intervenção sem ser instruído).
+Critério de revisão: jogadores morrerem sem entender por quê; ninguém descobrir a Intervenção; Vigia travado em geometria.
+
 ### Template de novas decisões
 
 ```

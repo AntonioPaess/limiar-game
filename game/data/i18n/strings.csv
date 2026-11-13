@@ -24,3 +24,11 @@ ch1.proto.candle.light,Acender vela
 ch1.proto.candle.snuff,Apagar vela
 ch1.proto.door.hint_candles,As velas desta sala parecem responder a algo que não está aqui.
 ch1.proto.puzzle.solved,Algo cede do outro lado da porta.
+ui.hud.health,Vida
+ui.hud.pulse,Pulso
+ui.checkpoint,Ponto de retorno
+ui.death,O silêncio volta a se fechar.
+ui.pause.hitstop,Pausa de impacto nos golpes
+ch1.proto.intervention.no_target,Nada responde.
+ch1.proto.intervention.no_pulse,Pulso insuficiente.
+ch1.proto.vigia.blocked,[metal contra o escudo]

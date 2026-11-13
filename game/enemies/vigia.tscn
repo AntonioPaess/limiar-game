@@ -1,0 +1,130 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://game/enemies/vigia.gd" id="1"]
+[ext_resource type="Script" path="res://game/combat/health.gd" id="2"]
+[ext_resource type="Script" path="res://game/resonance/resonance_target.gd" id="3"]
+[ext_resource type="Script" path="res://game/resonance/resonance_target_data.gd" id="4"]
+[ext_resource type="Resource" path="res://game/data/combat/vigia_sweep.tres" id="5"]
+[ext_resource type="Resource" path="res://game/data/combat/vigia_lunge.tres" id="6"]
+
+[sub_resource type="CapsuleShape3D" id="col"]
+radius = 0.55
+height = 2.1
+
+[sub_resource type="StandardMaterial3D" id="iron"]
+albedo_color = Color(0.52, 0.54, 0.58, 1)
+roughness = 0.75
+metallic = 0.5
+
+[sub_resource type="StandardMaterial3D" id="leather"]
+albedo_color = Color(0.45, 0.31, 0.24, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="visor"]
+albedo_color = Color(0.1, 0.07, 0.05, 1)
+emission_enabled = true
+emission = Color(0.84, 0.45, 0.18, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="StandardMaterial3D" id="crack"]
+albedo_color = Color(0.41, 0.27, 0.35, 1)
+emission_enabled = true
+emission = Color(0.6, 0.42, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CapsuleMesh" id="torso"]
+radius = 0.5
+height = 1.7
+
+[sub_resource type="BoxMesh" id="head"]
+size = Vector3(0.42, 0.46, 0.42)
+
+[sub_resource type="BoxMesh" id="visor_m"]
+size = Vector3(0.3, 0.06, 0.02)
+
+[sub_resource type="BoxMesh" id="shield"]
+size = Vector3(1.05, 1.45, 0.12)
+
+[sub_resource type="BoxMesh" id="crack_m"]
+size = Vector3(0.05, 0.9, 0.02)
+
+[sub_resource type="BoxMesh" id="arm"]
+size = Vector3(0.18, 0.18, 0.75)
+
+[sub_resource type="BoxMesh" id="mace"]
+size = Vector3(0.28, 0.28, 0.42)
+
+[sub_resource type="Resource" id="crack_data"]
+script = ExtResource("4")
+id = &"ch1_vigia_shield_crack"
+target_type = 3
+read_duration_sec = 5.0
+reach = 0.5
+
+[node name="Vigia" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1")
+attacks = [ExtResource("5"), ExtResource("6")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+shape = SubResource("col")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Torso" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.96, -0.26, 0, 0.26, 0.96, 0, 1.05, 0)
+mesh = SubResource("torso")
+surface_material_override/0 = SubResource("leather")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, -0.25)
+mesh = SubResource("head")
+surface_material_override/0 = SubResource("iron")
+
+[node name="Visor" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.215)
+mesh = SubResource("visor_m")
+surface_material_override/0 = SubResource("visor")
+
+[node name="ShieldPivot" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.15, -0.65)
+
+[node name="Shield" type="MeshInstance3D" parent="Visual/ShieldPivot"]
+mesh = SubResource("shield")
+surface_material_override/0 = SubResource("iron")
+
+[node name="Crack" type="MeshInstance3D" parent="Visual/ShieldPivot"]
+transform = Transform3D(0.94, 0.34, 0, -0.34, 0.94, 0, 0, 0, 1, 0.12, 0.05, -0.07)
+mesh = SubResource("crack_m")
+surface_material_override/0 = SubResource("crack")
+
+[node name="ArmPivot" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 1.55, -0.1)
+
+[node name="Arm" type="MeshInstance3D" parent="Visual/ArmPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.35)
+mesh = SubResource("arm")
+surface_material_override/0 = SubResource("iron")
+
+[node name="Mace" type="MeshInstance3D" parent="Visual/ArmPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+mesh = SubResource("mace")
+surface_material_override/0 = SubResource("iron")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2")
+max_health = 60.0
+
+[node name="Res_Fissura" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.15, -0.7)
+script = ExtResource("3")
+data = SubResource("crack_data")
+echo_nodes = Array[NodePath]([NodePath("../Visual/ShieldPivot/Crack")])
+echo_sound = &"monitor_beep"
+
+[node name="EchoAudio" type="AudioStreamPlayer3D" parent="Res_Fissura"]
+
+[node name="Sfx" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

@@ -21,7 +21,10 @@ func _initialize() -> void:
 	for t: String in ["test_spawn_on_floor", "test_walk_forward", "test_interaction_range_and_door",
 			"test_puzzle_states", "test_resonance_reveals_in_range_for_free", "test_resonance_flag_and_event_once",
 			"test_resonance_keeps_collision", "test_resonance_contextual_hint",
-			"test_exit_trigger_sets_flag", "test_pause_blocks_input"]:
+			"test_exit_trigger_sets_flag", "test_pause_blocks_input",
+			"test_attack_damages_once_from_behind", "test_shield_blocks_front", "test_guard_parry_and_block",
+			"test_dodge_iframes_and_walls", "test_vigia_telegraphs_then_hits", "test_vigia_beatable_without_parry",
+			"test_intervention_rules", "test_death_respawn_keeps_progress", "test_hit_stop_restores_time"]:
 		await _run_async(t)
 	print("\n[tests] %d ok, %d falha(s)" % [passed, failed])
 	quit(1 if failed > 0 else 0)
@@ -57,11 +60,33 @@ func _fail(what: String) -> void:
 	print("  FALHA %s: %s" % [_current, what])
 
 
-func _load_main() -> Main:
+## Sem Vigia por padrão (testes de exploração não devem ser interrompidos por combate).
+func _load_main(with_vigia := false) -> Main:
+	if not with_vigia:
+		game_state.set_flag(&"ch1.proto.vigia_comum_defeated", true)
 	var main: Main = (load(MAIN) as PackedScene).instantiate()
 	root.add_child(main)
 	await physics_frame
+	main.player.settings.hitstop_enabled = false  # tempo determinístico nos testes
 	return main
+
+
+## Vigia parado (IA congelada) virado para +Z na posição dada.
+func _freeze_vigia(main: Main, pos: Vector3) -> Vigia:
+	var v := main.vigia
+	v.set_physics_process(false)
+	v.global_position = pos
+	v.rotation = Vector3(0, PI, 0)  # frente (-Z local) aponta para +Z
+	v.state = Vigia.State.IDLE
+	return v
+
+
+## Roda a máquina de estados do combate do jogador até voltar a IDLE (máx. `limit` frames).
+func _finish_attack(main: Main, limit := 90) -> void:
+	for i in limit:
+		await physics_frame
+		if main.combat.state == PlayerCombat.State.IDLE:
+			return
 
 
 func _frames(n: int) -> void:
@@ -360,6 +385,193 @@ func test_pause_blocks_input() -> bool:
 	check(paused and not main.player.input_enabled, "pausa congela a árvore e desliga o input")
 	main.pause_menu.close()
 	check(not paused and main.player.input_enabled, "continuar devolve o controle")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+# --- combate (COM-01..03, RES-03, SAV parcial) -------------------------------------
+
+func test_attack_damages_once_from_behind() -> bool:
+	var main := await _load_main(true)
+	var v := _freeze_vigia(main, Vector3(0, 0.05, -34))
+	_place(main.player, Vector3(0, 0.05, -35.6), 180.0)  # atrás do Vigia, olhando para ele
+	await _frames(3)
+	var hp := v.health.current
+	check(main.combat.request_attack(), "ataque leve começa")
+	check(main.combat.state == PlayerCombat.State.WINDUP, "ataque passa por windup (anúncio)")
+	await _finish_attack(main)
+	check(is_equal_approx(hp - v.health.current, 12.0), "1 golpe = 12 de dano exatamente 1 vez (COM-01): %.1f" % (hp - v.health.current))
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_shield_blocks_front() -> bool:
+	var main := await _load_main(true)
+	var v := _freeze_vigia(main, Vector3(0, 0.05, -34))
+	_place(main.player, Vector3(0, 0.05, -32.4), 0.0)  # de frente para o escudo
+	await _frames(3)
+	var blocked := [0]
+	v.blocked_hit.connect(func(_a: Node3D) -> void: blocked[0] += 1)
+	var hp := v.health.current
+	main.combat.request_attack()
+	await _finish_attack(main)
+	check(v.health.current == hp, "golpe frontal não causa dano")
+	check(blocked[0] == 1, "escudo bloqueia 1 vez e avisa (feedback de bloqueio)")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_guard_parry_and_block() -> bool:
+	var main := await _load_main(true)
+	var v := _freeze_vigia(main, Vector3(0, 0.05, -34))
+	v.state = Vigia.State.WINDUP
+	_place(main.player, Vector3(0, 0.05, -32.2), 0.0)
+	await _frames(2)
+	var pulse: Pulse = main.player.get_node("Pulse")
+	var health: Health = main.player.get_node("Health")
+	var sweep: AttackData = load("res://game/data/combat/vigia_sweep.tres")
+	var p0 := pulse.current
+	main.combat.request_guard(true)
+	var applied := health.apply_damage(DamageEvent.make(v, main.player, sweep, DamageEvent.new_instance_id()))
+	check(applied == 0.0, "aparo no início da guarda: 0 de dano")
+	check(is_equal_approx(pulse.current, p0 + 20.0), "aparo rende 20 de Pulso")
+	check(v.state == Vigia.State.STAGGER, "aparo atordoa o Vigia")
+	main.combat.step(0.5)  # guarda levantada há muito tempo: fora da janela de aparo
+	applied = health.apply_damage(DamageEvent.make(v, main.player, sweep, DamageEvent.new_instance_id()))
+	check(is_equal_approx(applied, 5.0), "guarda frontal reduz 20 → 5 (%.1f)" % applied)
+	main.combat.request_guard(false)
+	var inst := DamageEvent.new_instance_id()
+	applied = health.apply_damage(DamageEvent.make(v, main.player, sweep, inst))
+	check(is_equal_approx(applied, 20.0), "sem guarda: dano cheio")
+	check(health.apply_damage(DamageEvent.make(v, main.player, sweep, inst)) == 0.0, "mesmo golpe não acerta duas vezes")
+	check(main.combat.state == PlayerCombat.State.STAGGER, "ser atingido interrompe por um instante (sem softlock)")
+	main.combat.step(0.3)
+	check(main.combat.state == PlayerCombat.State.IDLE, "volta ao controle depois da reação (COM-03)")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_dodge_iframes_and_walls() -> bool:
+	var main := await _load_main(true)
+	var v := _freeze_vigia(main, Vector3(0, 0.05, -34))
+	_place(main.player, Vector3(6.8, 0.05, -34), -90.0)  # perto da parede direita (x=8), olhando para ela
+	await _frames(3)
+	var health: Health = main.player.get_node("Health")
+	check(main.combat.request_dodge(Vector2(0, -1)), "esquiva para frente (rumo à parede)")
+	var sweep: AttackData = load("res://game/data/combat/vigia_sweep.tres")
+	check(health.apply_damage(DamageEvent.make(v, main.player, sweep, DamageEvent.new_instance_id())) == 0.0,
+		"invulnerável durante a esquiva")
+	await _frames(40)
+	check(main.player.global_position.x < 7.8, "esquiva não atravessa a parede (COM-02): x=%.2f" % main.player.global_position.x)
+	check(main.combat.state == PlayerCombat.State.IDLE, "esquiva termina e devolve o controle")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_vigia_telegraphs_then_hits() -> bool:
+	var main := await _load_main(true)
+	var v := main.vigia
+	var health: Health = main.player.get_node("Health")
+	var states: Array[int] = []
+	v.state_changed.connect(func(s: Vigia.State) -> void: states.append(s))
+	_place(main.player, Vector3(0, 0.05, -32.5), 0.0)  # parado na frente do Vigia
+	await _frames(150)
+	var w := states.find(Vigia.State.WINDUP)
+	var a := states.find(Vigia.State.ACTIVE)
+	check(w >= 0 and a > w, "anuncia (windup) antes de golpear: %s" % [states])
+	check(health.current < health.max_health, "golpe acerta jogador parado (%.0f)" % health.current)
+	check(is_equal_approx(health.max_health - health.current, 20.0) or is_equal_approx(health.max_health - health.current, 45.0),
+		"dano 1× por golpe: 20 (varrido) ou 20+25 (%.0f)" % (health.max_health - health.current))
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_vigia_beatable_without_parry() -> bool:
+	var main := await _load_main(true)
+	var v := _freeze_vigia(main, Vector3(0, 0.05, -34))
+	_place(main.player, Vector3(0.6, 0.05, -35.5), 160.0)  # pelas costas/flanco
+	await _frames(3)
+	var swings := 0
+	while not v.health.is_dead and swings < 10:
+		main.combat.request_attack()
+		await _finish_attack(main)
+		swings += 1
+	check(v.health.is_dead, "Vigia cai só com golpes pelas costas, sem aparo (%d golpes)" % swings)
+	check(swings == 5, "60 de vida / 12 por golpe = 5 golpes")
+	check(game_state.has_flag(&"ch1.proto.vigia_comum_defeated"), "derrota grava flag")
+	check(v.collision_layer == 0, "corpo deixa de bloquear passagem")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_intervention_rules() -> bool:
+	var main := await _load_main(true)
+	var v := _freeze_vigia(main, Vector3(0, 0.05, -34))
+	var res: PlayerResonance = main.player.get_node("PlayerResonance")
+	var pulse: Pulse = main.player.get_node("Pulse")
+	_place(main.player, Vector3(0, 0.05, -31), 0.0)  # 3 m à frente, mirando o Vigia
+	main.player.head.rotation.x = deg_to_rad(-8)
+	await _frames(3)
+	check(is_equal_approx(pulse.current, 40.0), "Pulso inicial 40")
+	check(not res.try_intervene() and is_equal_approx(pulse.current, 40.0), "sem Leitura, fissura oculta: nada é gasto")
+	res.try_read()
+	check(v.weak_point.is_revealed, "Leitura revela a fissura do escudo")
+	check(res.try_intervene(), "Intervenção na fissura revelada funciona")
+	check(is_equal_approx(pulse.current, 10.0), "custa 30 de Pulso uma vez (%.0f)" % pulse.current)
+	check(v.state == Vigia.State.STAGGER and v.exposed, "Vigia atordoado e exposto")
+	check(not res.try_intervene() and is_equal_approx(pulse.current, 10.0), "cooldown: segunda tentativa não gasta")
+	res._process(5.0)
+	v.weak_point.reveal(game_state)
+	check(not res.try_intervene() and is_equal_approx(pulse.current, 10.0), "Pulso insuficiente: recusa sem gastar")
+	# alvo errado: mirando a parede
+	pulse.gain(60.0)
+	main.player.rotation.y = deg_to_rad(90)
+	await _frames(2)
+	check(not res.try_intervene() and is_equal_approx(pulse.current, 70.0), "mira na parede: nada acontece (RES-03)")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_death_respawn_keeps_progress() -> bool:
+	var main := await _load_main(true)
+	_place(main.player, Vector3(0, 0.05, -23.5), 0.0)  # entra no checkpoint
+	await _frames(5)
+	game_state.set_flag(&"ch1.echo.hospital_glimpse_seen", true)
+	var health: Health = main.player.get_node("Health")
+	var huge := AttackData.new()
+	huge.damage = 999.0
+	health.apply_damage(DamageEvent.make(main.vigia, main.player, huge, DamageEvent.new_instance_id()))
+	check(main.combat.state == PlayerCombat.State.DEAD and not main.player.input_enabled, "morte trava o controle")
+	main.vigia.health.current = 10.0
+	await create_timer(2.6).timeout  # escurece, retorna, clareia
+	check(main.player.global_position.distance_to(Vector3(0, 0.05, -23.5)) < 0.3, "volta ao ponto de retorno da galeria")
+	check(health.current == health.max_health and main.player.input_enabled, "vida cheia e controle de volta")
+	check(game_state.has_flag(&"ch1.echo.hospital_glimpse_seen"), "memórias/flags preservadas após morrer")
+	check(main.vigia.health.current == main.vigia.health.max_health, "Vigia não derrotado volta inteiro")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_hit_stop_restores_time() -> bool:
+	var main := await _load_main(true)
+	main.player.settings.hitstop_enabled = true
+	main._hit_stop(0.08)
+	await create_timer(0.03, true, false, true).timeout
+	main._hit_stop(0.05)  # sobreposto
+	check(Engine.time_scale < 1.0, "hit-stop desacelera o tempo")
+	await create_timer(0.2, true, false, true).timeout
+	check(is_equal_approx(Engine.time_scale, 1.0), "tempo volta a 1.0 depois de hit-stops sobrepostos")
+	main.player.settings.hitstop_enabled = false
+	Engine.time_scale = 1.0
 	main.queue_free()
 	await process_frame
 	return true
