@@ -95,6 +95,9 @@ func _build() -> void:
 	box.add_child(_slider_row("ui.pause.resonance_intensity", 0.0, 1.0, 0.05,
 		func() -> float: return settings.resonance_effect_intensity,
 		func(v: float) -> void: settings.resonance_effect_intensity = v))
+	box.add_child(_check("ui.pause.hitstop",
+		func() -> bool: return settings.hitstop_enabled,
+		func(v: bool) -> void: settings.hitstop_enabled = v))
 	box.add_child(_check("ui.pause.head_bob",
 		func() -> bool: return settings.head_bob_enabled,
 		func(v: bool) -> void: settings.head_bob_enabled = v))

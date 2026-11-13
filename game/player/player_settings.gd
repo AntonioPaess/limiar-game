@@ -46,5 +46,11 @@ const FOV_MAX := 100.0
 		resonance_effect_intensity = clampf(v, 0.0, 1.0)
 		emit_changed()
 
+## Pausa de impacto (hit-stop) curta quando um golpe entra. Desligável (06 §5).
+@export var hitstop_enabled := true:
+	set(v):
+		hitstop_enabled = v
+		emit_changed()
+
 @export_group("Interação")
 @export var interact_distance := 2.5  ## metros
