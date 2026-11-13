@@ -1,6 +1,7 @@
-## LIM-020 — Controlador de Ressonância do jogador (modo Leitura, gratuito). Componente irmão do movimento.
-## Toque em R: revela alvos no raio por tempo limitado. Sem custo de Pulso. Pressionar de novo durante a Leitura ou
-## no cooldown não gera evento (invariante 3). Intervenção (segurar R, custa Pulso) é LIM-021.
+## LIM-020/021 — Controlador de Ressonância do jogador. Componente irmão do movimento e do combate.
+## Toque em R = Leitura: revela alvos no raio por tempo limitado, sem custo. Pressionar de novo durante a Leitura ou no
+## cooldown não gera evento (invariante 3). Segurar R = Intervenção: custa Pulso, só funciona num alvo AUTORIZADO
+## (ENEMY_WEAKPOINT já revelado, na mira e no alcance) e nunca afeta outro alvo.
 class_name PlayerResonance
 extends Node
 
@@ -11,12 +12,19 @@ signal state_changed(state: State)
 signal read_performed(revealed_ids: Array[StringName])
 ## Um alvo revelado tem legenda sonora (acessibilidade).
 signal caption(text: String)
+## Intervenção aplicada em `target_owner` (ex.: Vigia).
+signal intervened(target_owner: Node)
+## Intervenção tentada sem efeito: "no_target" | "no_pulse" | "cooldown". Nada é gasto.
+signal intervention_failed(reason: StringName)
 
 @export var settings: ResonanceSettings
 
 var state := State.READY
 var reads_done := 0
+var interventions_done := 0
 var _timer := 0.0
+var _hold := -1.0  ## tempo segurando R; -1 = solto ou já consumido
+var _intervention_cooldown := 0.0
 
 @onready var _player: FirstPersonPlayer = owner as FirstPersonPlayer
 
@@ -27,9 +35,53 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _player.input_enabled and event.is_action_pressed("resonance") and not event.is_echo():
-		try_read()
+	if not _player.input_enabled:
+		return
+	if event.is_action_pressed("resonance") and not event.is_echo():
+		try_read()  # o toque já lê; continuar segurando vira Intervenção
+		_hold = 0.0
 		get_viewport().set_input_as_handled()
+	elif event.is_action_released("resonance"):
+		_hold = -1.0
+
+
+## Intervenção: alvo ENEMY_WEAKPOINT revelado, na mira, no alcance; gasta Pulso uma vez. Retorna true se aplicou.
+func try_intervene() -> bool:
+	if _intervention_cooldown > 0.0:
+		intervention_failed.emit(&"cooldown")
+		return false
+	var t := find_intervention_target()
+	if t == null:
+		intervention_failed.emit(&"no_target")
+		return false
+	var pulse: Pulse = _player.get_node_or_null("Pulse")
+	if pulse == null or not pulse.spend(settings.intervention_cost):
+		intervention_failed.emit(&"no_pulse")
+		return false
+	_intervention_cooldown = settings.intervention_cooldown_sec
+	interventions_done += 1
+	var owner_node := t.get_parent()
+	if owner_node.has_method("on_intervened"):
+		owner_node.on_intervened(_player)
+	intervened.emit(owner_node)
+	return true
+
+
+## Corpo na mira (raio da câmera) que tem um ResonanceTarget ENEMY_WEAKPOINT revelado.
+func find_intervention_target() -> ResonanceTarget:
+	var cam := _player.camera
+	var from := cam.global_position
+	var to := from - cam.global_transform.basis.z * settings.intervention_range
+	var q := PhysicsRayQueryParameters3D.create(from, to, 1 | 4)  # mundo bloqueia; inimigos são alvo
+	q.exclude = [_player.get_rid()]
+	var hit := _player.get_world_3d().direct_space_state.intersect_ray(q)
+	if hit.is_empty():
+		return null
+	for c in (hit.collider as Node).get_children():
+		var rt := c as ResonanceTarget
+		if rt and rt.data and rt.data.target_type == ResonanceTargetData.TargetType.ENEMY_WEAKPOINT and rt.is_revealed:
+			return rt
+	return null
 
 
 ## Executa uma Leitura se estiver pronta. Retorna true se executou.
@@ -66,6 +118,15 @@ func progress() -> float:
 
 
 func _process(delta: float) -> void:
+	_intervention_cooldown = maxf(0.0, _intervention_cooldown - delta)
+	if _hold >= 0.0:
+		if not Input.is_action_pressed("resonance"):
+			_hold = -1.0
+		else:
+			_hold += delta
+			if _hold >= settings.hold_to_intervene_sec:
+				_hold = -1.0  # uma Intervenção por pressionamento
+				try_intervene()
 	if state == State.READY:
 		return
 	_timer -= delta

@@ -7,3 +7,7 @@ script = ExtResource("1")
 read_radius = 9.0
 read_active_sec = 5.0
 read_cooldown_sec = 1.5
+hold_to_intervene_sec = 0.35
+intervention_cost = 30.0
+intervention_range = 7.0
+intervention_cooldown_sec = 3.0
