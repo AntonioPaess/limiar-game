@@ -29,6 +29,7 @@ godot --editor --path .      # abre no editor
 | Ataque leve | botão esquerdo | RT |
 | Guarda / aparo (no início da guarda) | botão direito (segurar) | LT |
 | Esquiva (com direção) | Espaço | B |
+| Diário de Ecos | J / Tab | Back |
 | Pausa e opções | Esc | Start |
 | Overlay de debug | F3 | — |
 
@@ -40,7 +41,8 @@ pausa de impacto (hit-stop) e intensidade do efeito de Ressonância.
 
 ## O trecho cinza
 
-Átrio → corredor (uma fissura na parede: aperte **R** perto dela para ver o primeiro Eco) → ponto de retorno →
+Átrio (um porta-retratos no pedestal: examine com **E** e faça a Leitura com **R** — o primeiro Eco vai para o Diário,
+**J**) → corredor (uma fissura na parede: aperte **R** perto dela para ver o primeiro Eco) → ponto de retorno →
 galeria com o **Vigia** (escudo bloqueia golpes de frente: esquive e ataque pelas costas, apare no início da guarda, ou
 leia a fissura do escudo e segure R) e três candelabros → porta de cobre trancada → saída.
 
@@ -53,6 +55,7 @@ monitor está ligado (traço em zigue-zague) e deixe apagada onde a linha é ret
 tests/run.sh                                                     # import + suíte headless + smoke + 300 frames da cena
 godot --path . --script res://tests/visual/capture_views.gd -- --no-mouse-capture   # vistas em out/godot/views/
 godot --path . --script res://tests/visual/capture_combat.gd -- --no-mouse-capture  # poses de combate em out/godot/combat/
+godot --path . --script res://tests/visual/capture_eco.gd -- --no-mouse-capture     # Eco e Diário em out/godot/eco/
 ```
 
 `tests/run.sh` falha se o runner não imprimir o resumo (o Godot sai com 0 mesmo em erro de compilação).
