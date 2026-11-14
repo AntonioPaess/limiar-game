@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://game/ui/hud.gd" id="2"]
 [ext_resource type="Script" path="res://game/ui/pause_menu.gd" id="3"]
 [ext_resource type="Script" path="res://game/ui/debug_overlay.gd" id="4"]
+[ext_resource type="Script" path="res://game/ui/journal.gd" id="5"]
 
 [sub_resource type="Environment" id="env"]
 background_mode = 1
@@ -36,3 +37,6 @@ script = ExtResource("3")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 script = ExtResource("4")
+
+[node name="Journal" type="CanvasLayer" parent="."]
+script = ExtResource("5")

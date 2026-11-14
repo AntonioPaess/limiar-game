@@ -38,6 +38,11 @@ static func get_stream(sound: StringName) -> AudioStreamWAV:
 			s = _tones([[70.0, 0.0, 0.25, 0.5], [0.0, 0.0, 0.08, 0.2]], 0.3)
 		&"intervention":  # Intervenção: swell + estalo
 			s = _tones([[110.0, 0.0, 0.6, 0.4], [440.0, 0.35, 0.4, 0.25], [0.0, 0.35, 0.06, 0.3]], 0.8)
+		&"table_murmur":  # mesa ao longe: ruído suave em ondas + grave morno (placeholder de risos abafados)
+			s = _tones([[0.0, 0.0, 0.9, 0.05], [0.0, 0.6, 0.8, 0.07], [0.0, 1.2, 1.0, 0.06], [0.0, 1.9, 0.9, 0.05],
+				[196.0, 0.0, 2.6, 0.08], [246.9, 0.4, 2.2, 0.06]], 2.8)
+		&"warm_chord":  # acorde maior suave, sem ataque: momento de ternura (não é voz falsa)
+			s = _tones([[261.6, 0.0, 2.2, 0.16], [329.6, 0.05, 2.1, 0.13], [392.0, 0.1, 2.0, 0.12], [523.3, 0.3, 1.6, 0.05]], 2.4)
 		&"fizzle":  # Intervenção sem alvo/Pulso: nada responde
 			s = _tones([[180.0, 0.0, 0.15, 0.15], [150.0, 0.08, 0.15, 0.12]], 0.25)
 		_:
