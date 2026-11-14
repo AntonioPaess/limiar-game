@@ -20,6 +20,7 @@ var _hit_stop_id := 0
 @onready var hud: Hud = $Hud
 @onready var pause_menu: PauseMenu = $PauseMenu
 @onready var debug_overlay: DebugOverlay = $DebugOverlay
+@onready var journal: Journal = $Journal
 
 
 func _ready() -> void:
@@ -32,11 +33,15 @@ func _ready() -> void:
 
 	var interaction: PlayerInteraction = player.get_node("PlayerInteraction")
 	interaction.focus_changed.connect(hud.set_prompt)
-	interaction.interacted.connect(func(_id: StringName, msg: String) -> void: hud.show_message(msg))
+	interaction.interacted.connect(func(id: StringName, msg: String) -> void:
+		hud.show_message(msg)
+		if id == &"ch1.eco.foto" and resonance and resonance.reads_done == 0:
+			_show_timed_hint(tr("ui.resonance.hint") % Hud._key_for(&"resonance"), 10.0))
 	var exit: ExitTrigger = world.get_node("Interactables/ExitTrigger")
 	exit.reached.connect(hud.show_message)
 	_wire_resonance()
 	_wire_puzzle()
+	_wire_narrative()
 	checkpoint = spawn.global_transform
 	_wire_combat()
 	_spawn_vigia()
@@ -86,6 +91,32 @@ func _wire_puzzle() -> void:
 	res.state_changed.connect(func(st: PlayerResonance.State) -> void:
 		if st == PlayerResonance.State.ACTIVE:
 			hud.set_hint(""))
+
+
+func _wire_narrative() -> void:
+	var seq: EcoSequence = world.get_node("Resonance/Seq_AssentoGuardado")
+	seq.caption.connect(hud.show_message)
+	seq.discovered.connect(func(_e: EcoEntry) -> void:
+		_show_timed_hint(tr("ui.journal.new_entry") % Hud._key_for(&"journal"), 5.0))
+	journal.opened.connect(func() -> void:
+		player.input_enabled = false
+		hud.visible = false)
+	journal.closed.connect(func() -> void:
+		player.input_enabled = not pause_menu.is_open()
+		hud.visible = true)
+
+
+var _hint_id := 0
+
+
+## Dica curta que some sozinha (não fica presa se o jogador ignorar).
+func _show_timed_hint(text: String, sec: float) -> void:
+	_hint_id += 1
+	var my_id := _hint_id
+	hud.set_hint(text)
+	await get_tree().create_timer(sec, false).timeout
+	if my_id == _hint_id and hud.current_hint() == text:
+		hud.set_hint("")
 
 
 func _wire_combat() -> void:

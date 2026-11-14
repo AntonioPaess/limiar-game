@@ -24,6 +24,7 @@ const ACTIONS := {
 	"dodge": [["key", KEY_SPACE], ["joy_button", JOY_BUTTON_B]],
 	"resonance": [["key", KEY_R], ["joy_button", JOY_BUTTON_LEFT_SHOULDER]],
 	"pause": [["key", KEY_ESCAPE], ["joy_button", JOY_BUTTON_START]],
+	"journal": [["key", KEY_J], ["key", KEY_TAB], ["joy_button", JOY_BUTTON_BACK]],
 	"debug_overlay": [["key", KEY_F3]],
 }
 

@@ -121,19 +121,20 @@ func _build_markers() -> void:
 
 func _build_interactables() -> void:
 	var g := _group("Interactables")
-	# Objeto examinável no átrio (teste de prompt + mensagem)
-	var candle: StaticBody3D = _interactable(g, "Candle_Pedestal", Vector3(2.4, 0.5, -6),
-		Vector3(0.5, 1.0, 0.5), C_WALL, &"ch1.proto.candle", "ch1.proto.candle.examine", "ch1.proto.candle.text")
+	# Pedestal do átrio: porta-retratos do Eco "A cadeira guardada" (LIM-040). A vela fica como cenário.
+	var pedestal: StaticBody3D = _interactable(g, "Photo_Pedestal", Vector3(2.4, 0.5, -6),
+		Vector3(0.5, 1.0, 0.5), C_WALL, &"ch1.eco.foto", "ch1.eco.foto.examinar", "ch1.eco.foto.texto")
 	var wax := MeshInstance3D.new()
 	wax.name = "Candle"
 	var cyl := CylinderMesh.new()
-	cyl.top_radius = 0.06
-	cyl.bottom_radius = 0.07
-	cyl.height = 0.25
+	cyl.top_radius = 0.05
+	cyl.bottom_radius = 0.06
+	cyl.height = 0.2
 	wax.mesh = cyl
 	wax.material_override = _mat(C_CANDLE)
-	wax.position = Vector3(0, 0.62, 0)
-	candle.add_child(wax)
+	wax.position = Vector3(0.15, 0.6, 0.12)
+	pedestal.add_child(wax)
+	_photo_frame(pedestal)
 
 	# Porta da saída: dobradiça em x=-1; folha de 2 m gira para dentro da saída
 	var door := Node3D.new()
@@ -228,6 +229,54 @@ func _build_echo_layers() -> void:
 	lamp.omni_range = 6.0
 	h.add_child(lamp)
 
+	# Mesa do Eco "A cadeira guardada": cinco lugares, quatro presenças âmbar (sem rosto, sem gênero) e uma cadeira
+	# vazia, levemente afastada, mais perto de quem olha. Âmbar = presença/afeto (Art Bible §2).
+	var mesa := _group("Eco_Mesa", g)
+	var wood := Color("#6b4a35")
+	_box(mesa, "Tampo", Vector3(4.6, 0.76, -6.0), Vector3(1.0, 0.06, 1.9), wood, false)
+	for lx in [4.2, 5.0]:
+		for lz in [-5.15, -6.85]:
+			_box(mesa, "Perna_%d_%d" % [lx * 10, -lz * 100], Vector3(lx, 0.37, lz), Vector3(0.06, 0.74, 0.06), wood, false)
+	var cloth := Color("#d8cbb0")
+	_box(mesa, "Toalha", Vector3(4.6, 0.795, -6.0), Vector3(0.7, 0.01, 1.7), cloth, false)
+	# lugares: (posição da cadeira, yaw voltado para a mesa, ocupado?)
+	var seats := [
+		[Vector3(3.75, 0, -5.55), PI / 2.0, true], [Vector3(3.75, 0, -6.45), PI / 2.0, true],
+		[Vector3(5.45, 0, -5.55), -PI / 2.0, true], [Vector3(5.45, 0, -6.45), -PI / 2.0, true],
+		[Vector3(4.65, 0, -4.55), 0.25, false],  # cabeceira vazia, voltada para o átrio e um pouco afastada
+	]
+	for i in seats.size():
+		var seat: Array = seats[i]
+		_chair(mesa, "Cadeira_%d" % i, seat[0], seat[1], wood)
+		var pos: Vector3 = seat[0]
+		var toward := Vector3(4.6, 0, -6.0) - pos
+		toward.y = 0.0
+		_box(mesa, "Prato_%d" % i, pos + toward.normalized() * 0.55 + Vector3(0, 0.81, 0), Vector3(0.22, 0.012, 0.22), cloth.lightened(0.3), false)
+		if seat[2]:
+			var p := MeshInstance3D.new()
+			p.name = "Presenca_%d" % i
+			var cap := CapsuleMesh.new()
+			cap.radius = 0.2
+			cap.height = 1.05
+			p.mesh = cap
+			var m := StandardMaterial3D.new()
+			m.albedo_color = Color(0.84, 0.72, 0.47, 0.35)
+			m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			m.emission_enabled = true
+			m.emission = Color("#D5B879")
+			m.emission_energy_multiplier = 0.8
+			m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			p.material_override = m
+			p.position = pos + Vector3(0, 0.95, 0) - toward.normalized() * 0.05
+			mesa.add_child(p)
+	var warm := OmniLight3D.new()
+	warm.name = "Luz_Mesa"
+	warm.position = Vector3(4.6, 2.2, -6.0)
+	warm.light_color = Color("#ffcf8a")
+	warm.light_energy = 2.2
+	warm.omni_range = 5.5
+	mesa.add_child(warm)
+
 	# Monitores do Eco na sala de combate, sobre os candelabros: ligado = traço em zigue-zague, desligado = linha reta.
 	var m := _group("Eco_Monitores", g)
 	for i in CANDLE_POS.size():
@@ -237,6 +286,17 @@ func _build_echo_layers() -> void:
 
 func _build_resonance_targets() -> void:
 	var g := _group("Resonance")
+	# Eco narrativo do átrio: mesa ganha vida ao lado do pedestal; a encenação e o Diário ficam no EcoSequence.
+	_target(g, "Res_MesaGuardada", Vector3(4.2, 1.0, -6), &"ch1_atrio_mesa_guardada",
+		ResonanceTargetData.TargetType.NARRATIVE_ECHO, [], "", 2.0, [], ["../../EcoLayers/Eco_Mesa"], &"")
+	(g.get_node("Res_MesaGuardada").get("data") as ResonanceTargetData).read_duration_sec = 5.5
+	var seq := Node.new()
+	seq.name = "Seq_AssentoGuardado"
+	seq.set_script(load("res://game/narrative/eco_sequence.gd"))
+	seq.set("target", NodePath("../Res_MesaGuardada"))
+	seq.set("entry", load("res://game/data/narrative/ch1_assento_guardado.tres"))
+	g.add_child(seq)
+
 	_target(g, "Res_ParedeHospital", Vector3(1.75, 2.0, -19), &"ch1_wall_hospital_01",
 		ResonanceTargetData.TargetType.REVEAL, [&"ch1.echo.hospital_glimpse_seen"],
 		"ch1.proto.echo.hospital.caption", 1.0,
@@ -310,6 +370,37 @@ func _build_puzzle() -> void:
 	psfx.name = "Sfx"
 	puzzle.add_child(psfx)
 	g.add_child(puzzle)  # depois da porta e dos candelabros: _ready deles roda antes
+
+
+func _chair(parent: Node, n: String, pos: Vector3, yaw: float, c: Color) -> void:
+	var ch := Node3D.new()
+	ch.name = n
+	ch.position = pos
+	ch.rotation.y = yaw
+	parent.add_child(ch)
+	_box(ch, "Assento", Vector3(0, 0.45, 0), Vector3(0.42, 0.05, 0.42), c, false)
+	_box(ch, "Encosto", Vector3(0, 0.75, -0.19), Vector3(0.42, 0.55, 0.04), c, false)
+	for px in [-0.18, 0.18]:
+		for pz in [-0.18, 0.18]:
+			_box(ch, "Pe_%d_%d" % [px * 100, pz * 100], Vector3(px, 0.22, pz), Vector3(0.04, 0.44, 0.04), c, false)
+
+
+## Porta-retratos inclinado sobre o pedestal. A "foto" é um pictograma em cinzas: mesa, quatro cabeças, um lugar vazio.
+func _photo_frame(pedestal: Node3D) -> void:
+	var f := Node3D.new()
+	f.name = "PortaRetrato"
+	f.position = Vector3(-0.05, 0.66, 0.05)
+	f.rotation = Vector3(deg_to_rad(-15), deg_to_rad(20), 0)
+	pedestal.add_child(f)
+	_box(f, "Moldura", Vector3(0, 0, 0), Vector3(0.3, 0.22, 0.02), Color("#3a2a22"), false)
+	_box(f, "Foto", Vector3(0, 0, 0.011), Vector3(0.26, 0.18, 0.002), Color("#b9b3a8"), false)
+	_box(f, "Mesa", Vector3(0, -0.035, 0.013), Vector3(0.17, 0.03, 0.002), Color("#55504a"), false)
+	for i in 5:
+		var x := -0.064 + i * 0.032
+		if i == 3:  # o lugar vazio: só o encosto, sem cabeça
+			_box(f, "Lugar_vazio", Vector3(x, -0.005, 0.013), Vector3(0.018, 0.035, 0.002), Color("#8a847b"), false)
+		else:
+			_box(f, "Pessoa_%d" % i, Vector3(x, 0.015, 0.013), Vector3(0.02, 0.02, 0.002), Color("#3f3b36"), false)
 
 
 func _monitor(parent: Node, n: String, pos: Vector3, yaw: float, on: bool) -> void:

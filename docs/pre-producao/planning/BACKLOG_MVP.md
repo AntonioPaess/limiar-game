@@ -64,7 +64,7 @@
 
 ## Épico 4 — Narrativa e apresentação
 
-**LIM-040 | Um Eco narrativo [MUST]**
+**LIM-040 | Um Eco narrativo [MUST]** — ✅ feito (branch `feat/eco-narrativo`) como `[PROPOSTA]` escolhida por delegação do criador via council: "A cadeira guardada" no átrio (foto no pedestal → Leitura revela mesa com cadeira vazia, legendas de riso e da voz «Guardei seu lugar.»); Diário de Ecos (J/Tab/Back) com observações, hipóteses e transcrição revisável; flag `ch1.echo.assento_guardado` 1 vez. Voz gravada ainda não existe (legenda carrega a fala).
 - Registro com frase/áudio curto + objeto visual sem revelar lore não aprovado.
 - Aceite: atualização de diário/flag, evidência recuperável, sem texto expositivo excessivo.
 

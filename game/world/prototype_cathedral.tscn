@@ -1,950 +1,1379 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/interactive/interactable.gd" id="1_0wgen"]
-[ext_resource type="Script" path="res://game/interactive/door.gd" id="2_l0wq4"]
-[ext_resource type="Script" path="res://game/interactive/exit_trigger.gd" id="3_pwb26"]
-[ext_resource type="Script" path="res://game/interactive/candelabrum.gd" id="4_8o4qa"]
-[ext_resource type="Script" path="res://game/puzzles/candle_pattern_puzzle.gd" id="5_2w73n"]
-[ext_resource type="Script" path="res://game/resonance/resonance_target.gd" id="6_8d0br"]
-[ext_resource type="Script" path="res://game/resonance/resonance_target_data.gd" id="7_mxelo"]
-[ext_resource type="Script" path="res://game/interactive/hint_area.gd" id="8_www22"]
+[ext_resource type="Script" path="res://game/interactive/interactable.gd" id="1_pwb26"]
+[ext_resource type="Script" path="res://game/interactive/door.gd" id="2_8o4qa"]
+[ext_resource type="Script" path="res://game/interactive/exit_trigger.gd" id="3_2w73n"]
+[ext_resource type="Script" path="res://game/interactive/candelabrum.gd" id="4_8d0br"]
+[ext_resource type="Script" path="res://game/puzzles/candle_pattern_puzzle.gd" id="5_mxelo"]
+[ext_resource type="Script" path="res://game/resonance/resonance_target.gd" id="6_www22"]
+[ext_resource type="Script" path="res://game/resonance/resonance_target_data.gd" id="7_0p8j1"]
+[ext_resource type="Script" path="res://game/narrative/eco_sequence.gd" id="8_btxmw"]
+[ext_resource type="Resource" path="res://game/data/narrative/ch1_assento_guardado.tres" id="9_kjail"]
+[ext_resource type="Script" path="res://game/interactive/hint_area.gd" id="10_u41eg"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0p8j1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrebs"]
 albedo_color = Color(0.23137255, 0.2509804, 0.32941177, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btxmw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2npf8"]
 albedo_color = Color(0.61960787, 0.22352941, 0.24313726, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kjail"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0v7n"]
 albedo_color = Color(0.1882353, 0.20392157, 0.2784314, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u41eg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6u8y3"]
 albedo_color = Color(0.101960786, 0.11372549, 0.16078432, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrebs"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yw07x"]
 albedo_color = Color(0.14901961, 0.16470589, 0.21960784, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2npf8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nll7"]
 albedo_color = Color(0.4117647, 0.27450982, 0.3529412, 1)
 emission_enabled = true
 emission = Color(0.6039216, 0.42352942, 1, 1)
 emission_energy_multiplier = 0.6
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_a0v7n"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_gwybe"]
 size = Vector3(0.5, 1, 0.5)
 
-[sub_resource type="BoxMesh" id="BoxMesh_6u8y3"]
+[sub_resource type="BoxMesh" id="BoxMesh_86w2y"]
 size = Vector3(0.5, 1, 0.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yw07x"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3h4kq"]
 albedo_color = Color(0.8352941, 0.72156864, 0.4745098, 1)
 roughness = 0.9
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_8nll7"]
-top_radius = 0.06
-bottom_radius = 0.07
-height = 0.25
+[sub_resource type="CylinderMesh" id="CylinderMesh_unhgh"]
+top_radius = 0.05
+bottom_radius = 0.06
+height = 0.2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gwybe"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1wy5"]
+albedo_color = Color(0.22745098, 0.16470589, 0.13333334, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djy75"]
+albedo_color = Color(0.7254902, 0.7019608, 0.65882355, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3m0t"]
+albedo_color = Color(0.33333334, 0.3137255, 0.2901961, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2ev6"]
+albedo_color = Color(0.24705882, 0.23137255, 0.21176471, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5y8k"]
+albedo_color = Color(0.5411765, 0.5176471, 0.48235294, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8oi8p"]
 size = Vector3(1.96, 3, 0.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86w2y"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hheux"]
 albedo_color = Color(0.6313726, 0.42745098, 0.2784314, 1)
 roughness = 0.9
 
-[sub_resource type="BoxMesh" id="BoxMesh_3h4kq"]
+[sub_resource type="BoxMesh" id="BoxMesh_aj27a"]
 size = Vector3(1.96, 3, 0.2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_unhgh"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2ukh"]
 size = Vector3(3, 2, 2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_s1wy5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_worrn"]
 size = Vector3(3, 2, 2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_djy75"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mlt6h"]
 size = Vector3(0.35, 1.3, 0.35)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3m0t"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nu3fj"]
 albedo_color = Color(0.43529412, 0.46666667, 0.45882353, 1)
 roughness = 0.9
 
-[sub_resource type="BoxMesh" id="BoxMesh_x2ev6"]
+[sub_resource type="BoxMesh" id="BoxMesh_iqyqh"]
 size = Vector3(0.35, 1.3, 0.35)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5y8k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rts3w"]
 albedo_color = Color(0.8352941, 0.72156864, 0.4745098, 1)
 emission_enabled = true
 emission = Color(1, 0.6901961, 0.3764706, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_8oi8p"]
+[sub_resource type="SphereMesh" id="SphereMesh_qfg5a"]
 radius = 0.06
 height = 0.16
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hheux"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ihn3"]
 size = Vector3(0.35, 1.3, 0.35)
 
-[sub_resource type="BoxMesh" id="BoxMesh_aj27a"]
+[sub_resource type="BoxMesh" id="BoxMesh_2amgv"]
 size = Vector3(0.35, 1.3, 0.35)
 
-[sub_resource type="SphereMesh" id="SphereMesh_g2ukh"]
+[sub_resource type="SphereMesh" id="SphereMesh_fltoa"]
 radius = 0.06
 height = 0.16
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_worrn"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_88dor"]
 size = Vector3(0.35, 1.3, 0.35)
 
-[sub_resource type="BoxMesh" id="BoxMesh_mlt6h"]
+[sub_resource type="BoxMesh" id="BoxMesh_5ks5l"]
 size = Vector3(0.35, 1.3, 0.35)
 
-[sub_resource type="SphereMesh" id="SphereMesh_nu3fj"]
+[sub_resource type="SphereMesh" id="SphereMesh_hb4tg"]
 radius = 0.06
 height = 0.16
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqyqh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkpap"]
 albedo_color = Color(0.7254902, 0.7607843, 0.7490196, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rts3w"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pmmpv"]
 albedo_color = Color(0.5568628, 0.6039216, 0.5921569, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfg5a"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sy6rx"]
 albedo_color = Color(0.8509804, 0.8627451, 0.8392157, 1)
 emission_enabled = true
 emission = Color(0.8745098, 0.9137255, 1, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ihn3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsy3c"]
 albedo_color = Color(0.8509804, 0.8627451, 0.8392157, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2amgv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nn7da"]
 albedo_color = Color(0.050980393, 0.078431375, 0.07058824, 1)
 roughness = 0.9
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fltoa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_35ygd"]
 albedo_color = Color(0.34509805, 0.8392157, 0.5529412, 1)
 emission_enabled = true
 emission = Color(0.34509805, 0.8392157, 0.5529412, 1)
 emission_energy_multiplier = 2.5
 
-[sub_resource type="Resource" id="Resource_88dor"]
-script = ExtResource("7_mxelo")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ji5u"]
+albedo_color = Color(0.41960785, 0.2901961, 0.20784314, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvsse"]
+albedo_color = Color(0.84705883, 0.79607844, 0.6901961, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8yul"]
+albedo_color = Color(0.8929412, 0.8572549, 0.78313726, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cn8n5"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.84, 0.72, 0.47, 0.35)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nou2d"]
+radius = 0.2
+height = 1.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxbed"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.84, 0.72, 0.47, 0.35)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sbeaj"]
+radius = 0.2
+height = 1.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sf5ch"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.84, 0.72, 0.47, 0.35)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2mds6"]
+radius = 0.2
+height = 1.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ql7uf"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.84, 0.72, 0.47, 0.35)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sgkb2"]
+radius = 0.2
+height = 1.05
+
+[sub_resource type="Resource" id="Resource_vis10"]
+script = ExtResource("7_0p8j1")
+id = &"ch1_atrio_mesa_guardada"
+target_type = 4
+read_duration_sec = 5.5
+reach = 2.0
+
+[sub_resource type="Resource" id="Resource_x85hq"]
+script = ExtResource("7_0p8j1")
 id = &"ch1_wall_hospital_01"
 on_resolved_flags = Array[StringName]([&"ch1.echo.hospital_glimpse_seen"])
 caption_key = "ch1.proto.echo.hospital.caption"
 reach = 1.0
 
-[sub_resource type="Resource" id="Resource_5ks5l"]
-script = ExtResource("7_mxelo")
+[sub_resource type="Resource" id="Resource_e01yg"]
+script = ExtResource("7_0p8j1")
 id = &"ch1_room_monitors_01"
 target_type = 0
 on_resolved_flags = Array[StringName]([&"ch1.echo.room_monitors_seen"])
 caption_key = "ch1.proto.echo.monitors.caption"
 reach = 6.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hb4tg"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_tkgbr"]
 size = Vector3(3, 2, 5)
 
-[node name="PrototypeCathedral" type="Node3D" unique_id=174037170]
+[node name="PrototypeCathedral" type="Node3D" unique_id=505323337]
 
-[node name="Geometry" type="Node3D" parent="." unique_id=1806743169]
+[node name="Geometry" type="Node3D" parent="." unique_id=1141098710]
 
-[node name="A_Atrio" type="Node3D" parent="Geometry" unique_id=1649404858]
+[node name="A_Atrio" type="Node3D" parent="Geometry" unique_id=2053066105]
 
-[node name="Floor" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1848488226]
+[node name="Floor" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=718865933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -6)
 use_collision = true
 collision_mask = 0
 size = Vector3(12, 0.5, 12)
-material = SubResource("StandardMaterial3D_0p8j1")
+material = SubResource("StandardMaterial3D_vrebs")
 
-[node name="Carpet" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1130732899]
+[node name="Carpet" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=338564335]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -6.5)
 collision_mask = 0
 size = Vector3(1.6, 0.02, 11)
-material = SubResource("StandardMaterial3D_btxmw")
+material = SubResource("StandardMaterial3D_2npf8")
 
-[node name="WallBack" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1261591959]
+[node name="WallBack" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1296734625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(12.5, 8, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallLeft" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=669574798]
+[node name="WallLeft" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=560550306]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.25, 4, -6)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 8, 12)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallRight" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1481680132]
+[node name="WallRight" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=407787168]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25, 4, -6)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 8, 12)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallFront_L" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=589327997]
+[node name="WallFront_L" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1848796528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -12.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(5, 8, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallFront_R" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=55548380]
+[node name="WallFront_R" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1003481655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, -12.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(5, 8, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="Lintel" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=871790224]
+[node name="Lintel" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1445555208]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, -12.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(3, 3, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="Ceiling" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=9984996]
+[node name="Ceiling" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=137144310]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.25, -6)
 use_collision = true
 collision_mask = 0
 size = Vector3(13, 0.5, 13)
-material = SubResource("StandardMaterial3D_u41eg")
+material = SubResource("StandardMaterial3D_6u8y3")
 
-[node name="Column_-3_3" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=912528990]
+[node name="Column_-3_3" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=902186318]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 4, -3)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.8, 8, 0.8)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="Column_-3_9" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1283278654]
+[node name="Column_-3_9" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=844528149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 4, -9)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.8, 8, 0.8)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="Column_3_3" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=378655901]
+[node name="Column_3_3" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=962876724]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 4, -3)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.8, 8, 0.8)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="Column_3_9" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=911882849]
+[node name="Column_3_9" type="CSGBox3D" parent="Geometry/A_Atrio" unique_id=1813459873]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 4, -9)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.8, 8, 0.8)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="B_Corredor" type="Node3D" parent="Geometry" unique_id=902537637]
+[node name="B_Corredor" type="Node3D" parent="Geometry" unique_id=1402367881]
 
-[node name="Floor" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1796495820]
+[node name="Floor" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1630912344]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -19.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(3, 0.5, 13.5)
-material = SubResource("StandardMaterial3D_0p8j1")
+material = SubResource("StandardMaterial3D_vrebs")
 
-[node name="WallLeft" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=340189696]
+[node name="WallLeft" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=197404901]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 2.5, -19.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 5, 13.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallRight_A" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=539663364]
+[node name="WallRight_A" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1922404930]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 2.5, -14.75)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 5, 4.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallRight_B" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=51912504]
+[node name="WallRight_B" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1328977145]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 2.5, -23.5)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 5, 5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="EcoWall" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1525736663]
+[node name="EcoWall" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1143395277]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 2.5, -19)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 5, 4)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="EcoWall_Fissura" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=424669026]
+[node name="EcoWall_Fissura" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1214651639]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49, 2, -19.2)
 collision_mask = 0
 size = Vector3(0.03, 2.6, 0.07)
-material = SubResource("StandardMaterial3D_2npf8")
+material = SubResource("StandardMaterial3D_8nll7")
 
-[node name="Ceiling" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=1453877656]
+[node name="Ceiling" type="CSGBox3D" parent="Geometry/B_Corredor" unique_id=699958028]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.25, -19.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(4, 0.5, 13.5)
-material = SubResource("StandardMaterial3D_u41eg")
+material = SubResource("StandardMaterial3D_6u8y3")
 
-[node name="C_SalaCombate" type="Node3D" parent="Geometry" unique_id=999958878]
+[node name="C_SalaCombate" type="Node3D" parent="Geometry" unique_id=671248687]
 
-[node name="Floor" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1658259735]
+[node name="Floor" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1338240972]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -34)
 use_collision = true
 collision_mask = 0
 size = Vector3(16, 0.5, 16)
-material = SubResource("StandardMaterial3D_0p8j1")
+material = SubResource("StandardMaterial3D_vrebs")
 
-[node name="WallBack_L" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=408557070]
+[node name="WallBack_L" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=700703659]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, 3.5, -25.75)
 use_collision = true
 collision_mask = 0
 size = Vector3(6.5, 7, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallBack_R" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=239314094]
+[node name="WallBack_R" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=311857636]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 3.5, -25.75)
 use_collision = true
 collision_mask = 0
 size = Vector3(6.5, 7, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallBack_Lintel" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1492576926]
+[node name="WallBack_Lintel" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1445022954]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -25.75)
 use_collision = true
 collision_mask = 0
 size = Vector3(3, 2, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallLeft" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1981436610]
+[node name="WallLeft" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=401449186]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25, 3.5, -34)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 7, 16.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallRight" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=183619741]
+[node name="WallRight" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=2002687563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.25, 3.5, -34)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 7, 16.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallFar_L" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1694644446]
+[node name="WallFar_L" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=547049410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 3.5, -42.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(7, 7, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallFar_R" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=76864352]
+[node name="WallFar_R" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=136927468]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 3.5, -42.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(7, 7, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallFar_Lintel" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1467891149]
+[node name="WallFar_Lintel" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1051627313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -42.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(2, 4, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="Ceiling" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=259280608]
+[node name="Ceiling" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1667778558]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25, -34)
 use_collision = true
 collision_mask = 0
 size = Vector3(17, 0.5, 17)
-material = SubResource("StandardMaterial3D_u41eg")
+material = SubResource("StandardMaterial3D_6u8y3")
 
-[node name="Column_-4_30" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=25284219]
+[node name="Column_-4_30" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=962269207]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.5, -30)
 use_collision = true
 collision_mask = 0
 size = Vector3(1, 7, 1)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="Column_-4_38" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1500779790]
+[node name="Column_-4_38" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1771857931]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.5, -38)
 use_collision = true
 collision_mask = 0
 size = Vector3(1, 7, 1)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="Column_4_30" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1897302380]
+[node name="Column_4_30" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=831088025]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.5, -30)
 use_collision = true
 collision_mask = 0
 size = Vector3(1, 7, 1)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="Column_4_38" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=1092170835]
+[node name="Column_4_38" type="CSGBox3D" parent="Geometry/C_SalaCombate" unique_id=591650118]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.5, -38)
 use_collision = true
 collision_mask = 0
 size = Vector3(1, 7, 1)
-material = SubResource("StandardMaterial3D_vrebs")
+material = SubResource("StandardMaterial3D_yw07x")
 
-[node name="H_Saida" type="Node3D" parent="Geometry" unique_id=1017480821]
+[node name="H_Saida" type="Node3D" parent="Geometry" unique_id=2028188797]
 
-[node name="Floor" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=2145793013]
+[node name="Floor" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=58627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -45.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(4, 0.5, 5.5)
-material = SubResource("StandardMaterial3D_0p8j1")
+material = SubResource("StandardMaterial3D_vrebs")
 
-[node name="WallLeft" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=2066262529]
+[node name="WallLeft" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=186828190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 2, -45.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 4, 5.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallRight" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=269949578]
+[node name="WallRight" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=978874604]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 2, -45.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.5, 4, 5.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="WallBack" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=1657458849]
+[node name="WallBack" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=214219660]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -48.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(4.5, 4, 0.5)
-material = SubResource("StandardMaterial3D_kjail")
+material = SubResource("StandardMaterial3D_a0v7n")
 
-[node name="Ceiling" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=2101779238]
+[node name="Ceiling" type="CSGBox3D" parent="Geometry/H_Saida" unique_id=1308113735]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25, -45.25)
 use_collision = true
 collision_mask = 0
 size = Vector3(5, 0.5, 6)
-material = SubResource("StandardMaterial3D_u41eg")
+material = SubResource("StandardMaterial3D_6u8y3")
 
-[node name="Markers" type="Node3D" parent="." unique_id=1540568709]
+[node name="Markers" type="Node3D" parent="." unique_id=6768517]
 
-[node name="PlayerSpawn" type="Marker3D" parent="Markers" unique_id=530615828]
+[node name="PlayerSpawn" type="Marker3D" parent="Markers" unique_id=1822100528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -2)
 
-[node name="VigiaSpawn" type="Marker3D" parent="Markers" unique_id=2127133367]
+[node name="VigiaSpawn" type="Marker3D" parent="Markers" unique_id=366714619]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.05, -35)
 
-[node name="Checkpoint_Galeria" type="Marker3D" parent="Markers" unique_id=835854614]
+[node name="Checkpoint_Galeria" type="Marker3D" parent="Markers" unique_id=2052483616]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -23.5)
 
-[node name="Interactables" type="Node3D" parent="." unique_id=516410376]
+[node name="Interactables" type="Node3D" parent="." unique_id=2099903502]
 
-[node name="Candle_Pedestal" type="StaticBody3D" parent="Interactables" unique_id=217697293]
+[node name="Photo_Pedestal" type="StaticBody3D" parent="Interactables" unique_id=1264937464]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.5, -6)
-script = ExtResource("1_0wgen")
-interactable_id = &"ch1.proto.candle"
-prompt_key = "ch1.proto.candle.examine"
-message_key = "ch1.proto.candle.text"
+script = ExtResource("1_pwb26")
+interactable_id = &"ch1.eco.foto"
+prompt_key = "ch1.eco.foto.examinar"
+message_key = "ch1.eco.foto.texto"
 
-[node name="Shape" type="CollisionShape3D" parent="Interactables/Candle_Pedestal" unique_id=1435323481]
-shape = SubResource("BoxShape3D_a0v7n")
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Photo_Pedestal" unique_id=47288399]
+shape = SubResource("BoxShape3D_gwybe")
 
-[node name="Mesh" type="MeshInstance3D" parent="Interactables/Candle_Pedestal" unique_id=1863035711]
-material_override = SubResource("StandardMaterial3D_kjail")
-mesh = SubResource("BoxMesh_6u8y3")
+[node name="Mesh" type="MeshInstance3D" parent="Interactables/Photo_Pedestal" unique_id=567686534]
+material_override = SubResource("StandardMaterial3D_a0v7n")
+mesh = SubResource("BoxMesh_86w2y")
 
-[node name="Candle" type="MeshInstance3D" parent="Interactables/Candle_Pedestal" unique_id=1733932303]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
-material_override = SubResource("StandardMaterial3D_yw07x")
-mesh = SubResource("CylinderMesh_8nll7")
+[node name="Candle" type="MeshInstance3D" parent="Interactables/Photo_Pedestal" unique_id=287773968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.6, 0.12)
+material_override = SubResource("StandardMaterial3D_3h4kq")
+mesh = SubResource("CylinderMesh_unhgh")
 
-[node name="ExitDoor" type="Node3D" parent="Interactables" unique_id=1316419247]
+[node name="PortaRetrato" type="Node3D" parent="Interactables/Photo_Pedestal" unique_id=1771601771]
+transform = Transform3D(0.9396926, -0.088521324, 0.33036608, 0, 0.9659258, 0.25881904, -0.34202012, -0.24321035, 0.90767336, -0.05, 0.66, 0.05)
+
+[node name="Moldura" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=737970827]
+collision_mask = 0
+size = Vector3(0.3, 0.22, 0.02)
+material = SubResource("StandardMaterial3D_s1wy5")
+
+[node name="Foto" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=420897637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.011)
+collision_mask = 0
+size = Vector3(0.26, 0.18, 0.002)
+material = SubResource("StandardMaterial3D_djy75")
+
+[node name="Mesa" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=2009592649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035, 0.013)
+collision_mask = 0
+size = Vector3(0.17, 0.03, 0.002)
+material = SubResource("StandardMaterial3D_s3m0t")
+
+[node name="Pessoa_0" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=1238126993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.064, 0.015, 0.013)
+collision_mask = 0
+size = Vector3(0.02, 0.02, 0.002)
+material = SubResource("StandardMaterial3D_x2ev6")
+
+[node name="Pessoa_1" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=258687408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.032, 0.015, 0.013)
+collision_mask = 0
+size = Vector3(0.02, 0.02, 0.002)
+material = SubResource("StandardMaterial3D_x2ev6")
+
+[node name="Pessoa_2" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=960357855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, 0.013)
+collision_mask = 0
+size = Vector3(0.02, 0.02, 0.002)
+material = SubResource("StandardMaterial3D_x2ev6")
+
+[node name="Lugar_vazio" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=183495396]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.032, -0.005, 0.013)
+collision_mask = 0
+size = Vector3(0.018, 0.035, 0.002)
+material = SubResource("StandardMaterial3D_u5y8k")
+
+[node name="Pessoa_4" type="CSGBox3D" parent="Interactables/Photo_Pedestal/PortaRetrato" unique_id=1821719300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.064, 0.015, 0.013)
+collision_mask = 0
+size = Vector3(0.02, 0.02, 0.002)
+material = SubResource("StandardMaterial3D_x2ev6")
+
+[node name="ExitDoor" type="Node3D" parent="Interactables" unique_id=386803800]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -42.25)
-script = ExtResource("2_l0wq4")
+script = ExtResource("2_8o4qa")
 state_flag = &"ch1.proto.door_exit_open"
 locked = true
 locked_message_key = ""
 
-[node name="Interactable" type="StaticBody3D" parent="Interactables/ExitDoor" unique_id=1892672278]
+[node name="Interactable" type="StaticBody3D" parent="Interactables/ExitDoor" unique_id=987046678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 0)
-script = ExtResource("1_0wgen")
+script = ExtResource("1_pwb26")
 interactable_id = &"ch1.proto.door_exit"
 prompt_key = "ch1.proto.door.open"
 
-[node name="Shape" type="CollisionShape3D" parent="Interactables/ExitDoor/Interactable" unique_id=63350989]
-shape = SubResource("BoxShape3D_gwybe")
+[node name="Shape" type="CollisionShape3D" parent="Interactables/ExitDoor/Interactable" unique_id=864990219]
+shape = SubResource("BoxShape3D_8oi8p")
 
-[node name="Mesh" type="MeshInstance3D" parent="Interactables/ExitDoor/Interactable" unique_id=2071339919]
-material_override = SubResource("StandardMaterial3D_86w2y")
-mesh = SubResource("BoxMesh_3h4kq")
+[node name="Mesh" type="MeshInstance3D" parent="Interactables/ExitDoor/Interactable" unique_id=1951800750]
+material_override = SubResource("StandardMaterial3D_hheux")
+mesh = SubResource("BoxMesh_aj27a")
 
-[node name="CheckpointArea_Galeria" type="Area3D" parent="Interactables" unique_id=1633307761]
+[node name="CheckpointArea_Galeria" type="Area3D" parent="Interactables" unique_id=604593920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -23.5)
 collision_layer = 0
 collision_mask = 2
 metadata/checkpoint_marker = "Markers/Checkpoint_Galeria"
 
-[node name="Shape" type="CollisionShape3D" parent="Interactables/CheckpointArea_Galeria" unique_id=1185751944]
-shape = SubResource("BoxShape3D_unhgh")
+[node name="Shape" type="CollisionShape3D" parent="Interactables/CheckpointArea_Galeria" unique_id=490058064]
+shape = SubResource("BoxShape3D_g2ukh")
 
-[node name="ExitTrigger" type="Area3D" parent="Interactables" unique_id=1807839291]
+[node name="ExitTrigger" type="Area3D" parent="Interactables" unique_id=1482117882]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -46)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("3_pwb26")
+script = ExtResource("3_2w73n")
 
-[node name="Shape" type="CollisionShape3D" parent="Interactables/ExitTrigger" unique_id=1846891788]
-shape = SubResource("BoxShape3D_s1wy5")
+[node name="Shape" type="CollisionShape3D" parent="Interactables/ExitTrigger" unique_id=1520534438]
+shape = SubResource("BoxShape3D_worrn")
 
-[node name="Candelabro_0" type="Node3D" parent="Interactables" unique_id=1930525032]
+[node name="Candelabro_0" type="Node3D" parent="Interactables" unique_id=393708085]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 0, -31)
-script = ExtResource("4_8o4qa")
+script = ExtResource("4_8d0br")
 
-[node name="Interactable" type="StaticBody3D" parent="Interactables/Candelabro_0" unique_id=2114127954]
+[node name="Interactable" type="StaticBody3D" parent="Interactables/Candelabro_0" unique_id=1947833826]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
-script = ExtResource("1_0wgen")
+script = ExtResource("1_pwb26")
 interactable_id = &"ch1.proto.candle_0"
 prompt_key = "ch1.proto.candle.light"
 
-[node name="Shape" type="CollisionShape3D" parent="Interactables/Candelabro_0/Interactable" unique_id=773072968]
-shape = SubResource("BoxShape3D_djy75")
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Candelabro_0/Interactable" unique_id=1570540648]
+shape = SubResource("BoxShape3D_mlt6h")
 
-[node name="Mesh" type="MeshInstance3D" parent="Interactables/Candelabro_0/Interactable" unique_id=1367664645]
-material_override = SubResource("StandardMaterial3D_s3m0t")
-mesh = SubResource("BoxMesh_x2ev6")
+[node name="Mesh" type="MeshInstance3D" parent="Interactables/Candelabro_0/Interactable" unique_id=42625735]
+material_override = SubResource("StandardMaterial3D_nu3fj")
+mesh = SubResource("BoxMesh_iqyqh")
 
-[node name="Flame" type="Node3D" parent="Interactables/Candelabro_0" unique_id=38289161]
+[node name="Flame" type="Node3D" parent="Interactables/Candelabro_0" unique_id=1544480793]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0)
 
-[node name="Chama" type="MeshInstance3D" parent="Interactables/Candelabro_0/Flame" unique_id=1414215133]
-material_override = SubResource("StandardMaterial3D_u5y8k")
-mesh = SubResource("SphereMesh_8oi8p")
+[node name="Chama" type="MeshInstance3D" parent="Interactables/Candelabro_0/Flame" unique_id=1256705592]
+material_override = SubResource("StandardMaterial3D_rts3w")
+mesh = SubResource("SphereMesh_qfg5a")
 
-[node name="Light" type="OmniLight3D" parent="Interactables/Candelabro_0/Flame" unique_id=1546629911]
+[node name="Light" type="OmniLight3D" parent="Interactables/Candelabro_0/Flame" unique_id=215733778]
 light_color = Color(1, 0.6901961, 0.3764706, 1)
 light_energy = 1.2
 
-[node name="Sfx" type="AudioStreamPlayer3D" parent="Interactables/Candelabro_0" unique_id=1888847639]
+[node name="Sfx" type="AudioStreamPlayer3D" parent="Interactables/Candelabro_0" unique_id=1196243190]
 
-[node name="Candelabro_1" type="Node3D" parent="Interactables" unique_id=926405273]
+[node name="Candelabro_1" type="Node3D" parent="Interactables" unique_id=1180555091]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 0, -37)
-script = ExtResource("4_8o4qa")
+script = ExtResource("4_8d0br")
 
-[node name="Interactable" type="StaticBody3D" parent="Interactables/Candelabro_1" unique_id=1386317001]
+[node name="Interactable" type="StaticBody3D" parent="Interactables/Candelabro_1" unique_id=1773055002]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
-script = ExtResource("1_0wgen")
+script = ExtResource("1_pwb26")
 interactable_id = &"ch1.proto.candle_1"
 prompt_key = "ch1.proto.candle.light"
 
-[node name="Shape" type="CollisionShape3D" parent="Interactables/Candelabro_1/Interactable" unique_id=278136783]
-shape = SubResource("BoxShape3D_hheux")
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Candelabro_1/Interactable" unique_id=1987896484]
+shape = SubResource("BoxShape3D_6ihn3")
 
-[node name="Mesh" type="MeshInstance3D" parent="Interactables/Candelabro_1/Interactable" unique_id=353591984]
-material_override = SubResource("StandardMaterial3D_s3m0t")
-mesh = SubResource("BoxMesh_aj27a")
+[node name="Mesh" type="MeshInstance3D" parent="Interactables/Candelabro_1/Interactable" unique_id=1287316292]
+material_override = SubResource("StandardMaterial3D_nu3fj")
+mesh = SubResource("BoxMesh_2amgv")
 
-[node name="Flame" type="Node3D" parent="Interactables/Candelabro_1" unique_id=1488586200]
+[node name="Flame" type="Node3D" parent="Interactables/Candelabro_1" unique_id=2019116543]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0)
 
-[node name="Chama" type="MeshInstance3D" parent="Interactables/Candelabro_1/Flame" unique_id=1381805736]
-material_override = SubResource("StandardMaterial3D_u5y8k")
-mesh = SubResource("SphereMesh_g2ukh")
+[node name="Chama" type="MeshInstance3D" parent="Interactables/Candelabro_1/Flame" unique_id=1596058274]
+material_override = SubResource("StandardMaterial3D_rts3w")
+mesh = SubResource("SphereMesh_fltoa")
 
-[node name="Light" type="OmniLight3D" parent="Interactables/Candelabro_1/Flame" unique_id=1204655287]
+[node name="Light" type="OmniLight3D" parent="Interactables/Candelabro_1/Flame" unique_id=388470854]
 light_color = Color(1, 0.6901961, 0.3764706, 1)
 light_energy = 1.2
 
-[node name="Sfx" type="AudioStreamPlayer3D" parent="Interactables/Candelabro_1" unique_id=2067331633]
+[node name="Sfx" type="AudioStreamPlayer3D" parent="Interactables/Candelabro_1" unique_id=344763454]
 
-[node name="Candelabro_2" type="Node3D" parent="Interactables" unique_id=843504421]
+[node name="Candelabro_2" type="Node3D" parent="Interactables" unique_id=251832782]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0, -34)
-script = ExtResource("4_8o4qa")
+script = ExtResource("4_8d0br")
 
-[node name="Interactable" type="StaticBody3D" parent="Interactables/Candelabro_2" unique_id=1007673986]
+[node name="Interactable" type="StaticBody3D" parent="Interactables/Candelabro_2" unique_id=2131236653]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
-script = ExtResource("1_0wgen")
+script = ExtResource("1_pwb26")
 interactable_id = &"ch1.proto.candle_2"
 prompt_key = "ch1.proto.candle.light"
 
-[node name="Shape" type="CollisionShape3D" parent="Interactables/Candelabro_2/Interactable" unique_id=1442661156]
-shape = SubResource("BoxShape3D_worrn")
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Candelabro_2/Interactable" unique_id=421761813]
+shape = SubResource("BoxShape3D_88dor")
 
-[node name="Mesh" type="MeshInstance3D" parent="Interactables/Candelabro_2/Interactable" unique_id=782553363]
-material_override = SubResource("StandardMaterial3D_s3m0t")
-mesh = SubResource("BoxMesh_mlt6h")
+[node name="Mesh" type="MeshInstance3D" parent="Interactables/Candelabro_2/Interactable" unique_id=1924698196]
+material_override = SubResource("StandardMaterial3D_nu3fj")
+mesh = SubResource("BoxMesh_5ks5l")
 
-[node name="Flame" type="Node3D" parent="Interactables/Candelabro_2" unique_id=2057486111]
+[node name="Flame" type="Node3D" parent="Interactables/Candelabro_2" unique_id=1286725837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0)
 
-[node name="Chama" type="MeshInstance3D" parent="Interactables/Candelabro_2/Flame" unique_id=687347673]
-material_override = SubResource("StandardMaterial3D_u5y8k")
-mesh = SubResource("SphereMesh_nu3fj")
+[node name="Chama" type="MeshInstance3D" parent="Interactables/Candelabro_2/Flame" unique_id=688583853]
+material_override = SubResource("StandardMaterial3D_rts3w")
+mesh = SubResource("SphereMesh_hb4tg")
 
-[node name="Light" type="OmniLight3D" parent="Interactables/Candelabro_2/Flame" unique_id=2034419528]
+[node name="Light" type="OmniLight3D" parent="Interactables/Candelabro_2/Flame" unique_id=676884767]
 light_color = Color(1, 0.6901961, 0.3764706, 1)
 light_energy = 1.2
 
-[node name="Sfx" type="AudioStreamPlayer3D" parent="Interactables/Candelabro_2" unique_id=885591599]
+[node name="Sfx" type="AudioStreamPlayer3D" parent="Interactables/Candelabro_2" unique_id=89787742]
 
-[node name="PuzzleVelas" type="Node" parent="Interactables" unique_id=519153001]
-script = ExtResource("5_2w73n")
+[node name="PuzzleVelas" type="Node" parent="Interactables" unique_id=1271510914]
+script = ExtResource("5_mxelo")
 candelabra = Array[NodePath]([NodePath("../Candelabro_0"), NodePath("../Candelabro_1"), NodePath("../Candelabro_2")])
 solution = Array[bool]([true, false, true])
 door = NodePath("../ExitDoor")
 
-[node name="Sfx" type="AudioStreamPlayer" parent="Interactables/PuzzleVelas" unique_id=1699191998]
+[node name="Sfx" type="AudioStreamPlayer" parent="Interactables/PuzzleVelas" unique_id=1061512362]
 
-[node name="Lights" type="Node3D" parent="." unique_id=1436787221]
+[node name="Lights" type="Node3D" parent="." unique_id=1786504506]
 
-[node name="Atrio_Vela_L" type="OmniLight3D" parent="Lights" unique_id=1831379890]
+[node name="Atrio_Vela_L" type="OmniLight3D" parent="Lights" unique_id=487390289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1.6, -10.5)
 light_color = Color(1, 0.6901961, 0.3764706, 1)
 light_energy = 2.5
 shadow_enabled = true
 omni_range = 10.0
 
-[node name="Atrio_Vela_R" type="OmniLight3D" parent="Lights" unique_id=971191742]
+[node name="Atrio_Vela_R" type="OmniLight3D" parent="Lights" unique_id=363453486]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, -6)
 light_color = Color(1, 0.6901961, 0.3764706, 1)
 light_energy = 1.8
 omni_range = 7.0
 
-[node name="Atrio_Frio" type="OmniLight3D" parent="Lights" unique_id=1023574415]
+[node name="Atrio_Frio" type="OmniLight3D" parent="Lights" unique_id=216613096]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, -6)
 light_color = Color(0.56078434, 0.6392157, 0.8509804, 1)
 light_energy = 1.4
 omni_range = 16.0
 
-[node name="Corredor" type="OmniLight3D" parent="Lights" unique_id=197238717]
+[node name="Corredor" type="OmniLight3D" parent="Lights" unique_id=1824936570]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.5, -16)
 light_color = Color(1, 0.627451, 0.3137255, 1)
 light_energy = 1.6
 omni_range = 9.0
 
-[node name="Corredor_Fundo" type="OmniLight3D" parent="Lights" unique_id=101947943]
+[node name="Corredor_Fundo" type="OmniLight3D" parent="Lights" unique_id=612149693]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -24)
 light_color = Color(1, 0.627451, 0.3137255, 1)
 light_energy = 1.2
 omni_range = 8.0
 
-[node name="Corredor_Eco" type="OmniLight3D" parent="Lights" unique_id=762096905]
+[node name="Corredor_Eco" type="OmniLight3D" parent="Lights" unique_id=963359955]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.5, -19)
 light_color = Color(0.6039216, 0.42352942, 1, 1)
 light_energy = 0.8
 omni_range = 4.0
 
-[node name="Sala_A" type="OmniLight3D" parent="Lights" unique_id=733471564]
+[node name="Sala_A" type="OmniLight3D" parent="Lights" unique_id=1345240025]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 4, -30)
 light_color = Color(1, 0.627451, 0.3137255, 1)
 light_energy = 3.0
 shadow_enabled = true
 omni_range = 14.0
 
-[node name="Sala_B" type="OmniLight3D" parent="Lights" unique_id=1153486332]
+[node name="Sala_B" type="OmniLight3D" parent="Lights" unique_id=1935223377]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4, -38)
 light_color = Color(1, 0.627451, 0.3137255, 1)
 light_energy = 3.0
 shadow_enabled = true
 omni_range = 14.0
 
-[node name="Sala_C" type="OmniLight3D" parent="Lights" unique_id=1561535512]
+[node name="Sala_C" type="OmniLight3D" parent="Lights" unique_id=125826556]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, -29)
 light_color = Color(1, 0.6901961, 0.3764706, 1)
 light_energy = 1.5
 omni_range = 9.0
 
-[node name="Sala_D" type="OmniLight3D" parent="Lights" unique_id=716822018]
+[node name="Sala_D" type="OmniLight3D" parent="Lights" unique_id=1476202593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -39.5)
 light_color = Color(1, 0.6901961, 0.3764706, 1)
 light_energy = 1.5
 omni_range = 9.0
 
-[node name="Sala_Frio" type="OmniLight3D" parent="Lights" unique_id=18712366]
+[node name="Sala_Frio" type="OmniLight3D" parent="Lights" unique_id=415681216]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -34)
 light_color = Color(0.56078434, 0.6392157, 0.8509804, 1)
 light_energy = 1.6
 omni_range = 18.0
 
-[node name="Saida_Dourada" type="OmniLight3D" parent="Lights" unique_id=741636455]
+[node name="Saida_Dourada" type="OmniLight3D" parent="Lights" unique_id=522231189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -46)
 light_color = Color(1, 0.8509804, 0.5411765, 1)
 light_energy = 3.5
 shadow_enabled = true
 omni_range = 10.0
 
-[node name="EcoLayers" type="Node3D" parent="." unique_id=1683328566]
+[node name="EcoLayers" type="Node3D" parent="." unique_id=490558085]
 
-[node name="Eco_Hospital" type="Node3D" parent="EcoLayers" unique_id=1205560016]
+[node name="Eco_Hospital" type="Node3D" parent="EcoLayers" unique_id=702724571]
 
-[node name="Floor" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=453970990]
+[node name="Floor" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=527554386]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.24, -19)
 collision_mask = 0
 size = Vector3(4, 0.5, 4)
-material = SubResource("StandardMaterial3D_iqyqh")
+material = SubResource("StandardMaterial3D_jkpap")
 
-[node name="WallFar" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=592702070]
+[node name="WallFar" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=589305415]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25, 2, -19)
 collision_mask = 0
 size = Vector3(0.5, 4, 4.5)
-material = SubResource("StandardMaterial3D_rts3w")
+material = SubResource("StandardMaterial3D_pmmpv")
 
-[node name="WallA" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=406377700]
+[node name="WallA" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=387745589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, -16.75)
 collision_mask = 0
 size = Vector3(4.5, 4, 0.5)
-material = SubResource("StandardMaterial3D_rts3w")
+material = SubResource("StandardMaterial3D_pmmpv")
 
-[node name="WallB" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=127632181]
+[node name="WallB" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=1801717731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, -21.25)
 collision_mask = 0
 size = Vector3(4.5, 4, 0.5)
-material = SubResource("StandardMaterial3D_rts3w")
+material = SubResource("StandardMaterial3D_pmmpv")
 
-[node name="Ceiling" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=1188086760]
+[node name="Ceiling" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=1152266630]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.25, -19)
 collision_mask = 0
 size = Vector3(4.5, 0.5, 4.5)
-material = SubResource("StandardMaterial3D_rts3w")
+material = SubResource("StandardMaterial3D_pmmpv")
 
-[node name="Fluorescente" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=740280212]
+[node name="Fluorescente" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=110041248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.95, -19)
 collision_mask = 0
 size = Vector3(0.15, 0.06, 2.4)
-material = SubResource("StandardMaterial3D_qfg5a")
+material = SubResource("StandardMaterial3D_sy6rx")
 
-[node name="Maca_Base" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=1879367065]
+[node name="Maca_Base" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=1781076536]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.45, -19.6)
 collision_mask = 0
 size = Vector3(0.9, 0.12, 2)
-material = SubResource("StandardMaterial3D_s3m0t")
+material = SubResource("StandardMaterial3D_nu3fj")
 
-[node name="Maca_Lencol" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=1996075648]
+[node name="Maca_Lencol" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=384927260]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.6, -19.6)
 collision_mask = 0
 size = Vector3(0.85, 0.16, 1.9)
-material = SubResource("StandardMaterial3D_6ihn3")
+material = SubResource("StandardMaterial3D_fsy3c")
 
-[node name="Maca_Cabeceira" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=816815156]
+[node name="Maca_Cabeceira" type="CSGBox3D" parent="EcoLayers/Eco_Hospital" unique_id=1565662072]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.85, -18.62)
 collision_mask = 0
 size = Vector3(0.9, 0.7, 0.06)
-material = SubResource("StandardMaterial3D_s3m0t")
+material = SubResource("StandardMaterial3D_nu3fj")
 
-[node name="Monitor" type="Node3D" parent="EcoLayers/Eco_Hospital" unique_id=728072849]
+[node name="Monitor" type="Node3D" parent="EcoLayers/Eco_Hospital" unique_id=373517918]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.6, 1.35, -18.4)
 
-[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=564517577]
+[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=1710807844]
 collision_mask = 0
 size = Vector3(0.62, 0.46, 0.18)
-material = SubResource("StandardMaterial3D_s3m0t")
+material = SubResource("StandardMaterial3D_nu3fj")
 
-[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=569634769]
+[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=2034377460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.095)
 collision_mask = 0
 size = Vector3(0.52, 0.34, 0.01)
-material = SubResource("StandardMaterial3D_2amgv")
+material = SubResource("StandardMaterial3D_nn7da")
 
-[node name="Traco_0" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=568321358]
+[node name="Traco_0" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=325870916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.02, 0.102)
 collision_mask = 0
 size = Vector3(0.14, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_1" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=265796212]
+[node name="Traco_1" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=2059384060]
 transform = Transform3D(0.37139064, -0.9284767, 0, 0.9284767, 0.37139064, 0, 0, 0, 1, -0.06, 0.07, 0.102)
 collision_mask = 0
 size = Vector3(0.1077033, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_2" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=1418314688]
+[node name="Traco_2" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=1677555014]
 transform = Transform3D(0.20601049, 0.9785498, 0, -0.9785498, 0.20601049, 0, 0, 0, 1, -0.02, 0.024999999, 0.102)
 collision_mask = 0
 size = Vector3(0.19416489, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_3" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=1421953989]
+[node name="Traco_3" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=776223476]
 transform = Transform3D(0.27472112, -0.96152395, 0, 0.96152395, 0.27472112, 0, 0, 0, 1, 0.02, -1.4156103e-09, 0.102)
 collision_mask = 0
 size = Vector3(0.1456022, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_4" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=477080790]
+[node name="Traco_4" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=864210014]
 transform = Transform3D(0.62469506, 0.7808688, 0, -0.7808688, 0.62469506, 0, 0, 0, 1, 0.06, 0.045, 0.102)
 collision_mask = 0
 size = Vector3(0.06403124, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_5" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=1324315195]
+[node name="Traco_5" type="CSGBox3D" parent="EcoLayers/Eco_Hospital/Monitor" unique_id=1216473622]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.02, 0.102)
 collision_mask = 0
 size = Vector3(0.14, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Luz_Clinica" type="OmniLight3D" parent="EcoLayers/Eco_Hospital" unique_id=1321345061]
+[node name="Luz_Clinica" type="OmniLight3D" parent="EcoLayers/Eco_Hospital" unique_id=764347612]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.6, -19)
 light_color = Color(0.8745098, 0.9137255, 1, 1)
 light_energy = 1.6
 omni_range = 6.0
 
-[node name="Eco_Monitores" type="Node3D" parent="EcoLayers" unique_id=1871273715]
+[node name="Eco_Mesa" type="Node3D" parent="EcoLayers" unique_id=1333347388]
 
-[node name="Monitor_0" type="Node3D" parent="EcoLayers/Eco_Monitores" unique_id=769014420]
+[node name="Tampo" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=1930597324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.76, -6)
+collision_mask = 0
+size = Vector3(1, 0.06, 1.9)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Perna_42_515" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=378520220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0.37, -5.15)
+collision_mask = 0
+size = Vector3(0.06, 0.74, 0.06)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Perna_42_685" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=1092304832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0.37, -6.85)
+collision_mask = 0
+size = Vector3(0.06, 0.74, 0.06)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Perna_50_515" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=2121401074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.37, -5.15)
+collision_mask = 0
+size = Vector3(0.06, 0.74, 0.06)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Perna_50_685" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=1873251379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.37, -6.85)
+collision_mask = 0
+size = Vector3(0.06, 0.74, 0.06)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Toalha" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=2142083835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.795, -6)
+collision_mask = 0
+size = Vector3(0.7, 0.01, 1.7)
+material = SubResource("StandardMaterial3D_tvsse")
+
+[node name="Cadeira_0" type="Node3D" parent="EcoLayers/Eco_Mesa" unique_id=1192787353]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.75, 0, -5.55)
+
+[node name="Assento" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_0" unique_id=553010722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+collision_mask = 0
+size = Vector3(0.42, 0.05, 0.42)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Encosto" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_0" unique_id=1049235379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.19)
+collision_mask = 0
+size = Vector3(0.42, 0.55, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_0" unique_id=1864062317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_0" unique_id=570236032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_0" unique_id=172639852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_0" unique_id=1034014670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Prato_0" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=411912732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2360835, 0.81, -5.807338)
+collision_mask = 0
+size = Vector3(0.22, 0.012, 0.22)
+material = SubResource("StandardMaterial3D_q8yul")
+
+[node name="Presenca_0" type="MeshInstance3D" parent="EcoLayers/Eco_Mesa" unique_id=98529697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7058105, 0.95, -5.5266056)
+material_override = SubResource("StandardMaterial3D_cn8n5")
+mesh = SubResource("CapsuleMesh_nou2d")
+
+[node name="Cadeira_1" type="Node3D" parent="EcoLayers/Eco_Mesa" unique_id=1974102890]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.75, 0, -6.45)
+
+[node name="Assento" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_1" unique_id=695586486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+collision_mask = 0
+size = Vector3(0.42, 0.05, 0.42)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Encosto" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_1" unique_id=1322968035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.19)
+collision_mask = 0
+size = Vector3(0.42, 0.55, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_1" unique_id=141168284]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_1" unique_id=399885076]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_1" unique_id=2064021854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_1" unique_id=365974392]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Prato_1" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=1135068618]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2360835, 0.81, -6.192662)
+collision_mask = 0
+size = Vector3(0.22, 0.012, 0.22)
+material = SubResource("StandardMaterial3D_q8yul")
+
+[node name="Presenca_1" type="MeshInstance3D" parent="EcoLayers/Eco_Mesa" unique_id=726768415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7058105, 0.95, -6.4733944)
+material_override = SubResource("StandardMaterial3D_yxbed")
+mesh = SubResource("CapsuleMesh_sbeaj")
+
+[node name="Cadeira_2" type="Node3D" parent="EcoLayers/Eco_Mesa" unique_id=292966426]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.45, 0, -5.55)
+
+[node name="Assento" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_2" unique_id=209399459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+collision_mask = 0
+size = Vector3(0.42, 0.05, 0.42)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Encosto" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_2" unique_id=681531556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.19)
+collision_mask = 0
+size = Vector3(0.42, 0.55, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_2" unique_id=1416687394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_2" unique_id=1542785157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_2" unique_id=1951742783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_2" unique_id=1767043319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Prato_2" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=1836108778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9639163, 0.81, -5.807338)
+collision_mask = 0
+size = Vector3(0.22, 0.012, 0.22)
+material = SubResource("StandardMaterial3D_q8yul")
+
+[node name="Presenca_2" type="MeshInstance3D" parent="EcoLayers/Eco_Mesa" unique_id=1074621832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4941893, 0.95, -5.5266056)
+material_override = SubResource("StandardMaterial3D_sf5ch")
+mesh = SubResource("CapsuleMesh_2mds6")
+
+[node name="Cadeira_3" type="Node3D" parent="EcoLayers/Eco_Mesa" unique_id=1633470046]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.45, 0, -6.45)
+
+[node name="Assento" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_3" unique_id=514175268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+collision_mask = 0
+size = Vector3(0.42, 0.05, 0.42)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Encosto" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_3" unique_id=1477460390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.19)
+collision_mask = 0
+size = Vector3(0.42, 0.55, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_3" unique_id=1200064426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_3" unique_id=244756549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_3" unique_id=993879935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_3" unique_id=539062769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Prato_3" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=1081911823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9639163, 0.81, -6.192662)
+collision_mask = 0
+size = Vector3(0.22, 0.012, 0.22)
+material = SubResource("StandardMaterial3D_q8yul")
+
+[node name="Presenca_3" type="MeshInstance3D" parent="EcoLayers/Eco_Mesa" unique_id=1998497080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4941893, 0.95, -6.4733944)
+material_override = SubResource("StandardMaterial3D_ql7uf")
+mesh = SubResource("CapsuleMesh_sgkb2")
+
+[node name="Cadeira_4" type="Node3D" parent="EcoLayers/Eco_Mesa" unique_id=99528689]
+transform = Transform3D(0.9689124, 0, 0.24740396, 0, 1, 0, -0.24740396, 0, 0.9689124, 4.65, 0, -4.55)
+
+[node name="Assento" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_4" unique_id=1929002206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+collision_mask = 0
+size = Vector3(0.42, 0.05, 0.42)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Encosto" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_4" unique_id=987775735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.19)
+collision_mask = 0
+size = Vector3(0.42, 0.55, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_4" unique_id=1379825712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_-18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_4" unique_id=1671642157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_-18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_4" unique_id=1031852559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, -0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Pe_18_18" type="CSGBox3D" parent="EcoLayers/Eco_Mesa/Cadeira_4" unique_id=1816092275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, 0.18)
+collision_mask = 0
+size = Vector3(0.04, 0.44, 0.04)
+material = SubResource("StandardMaterial3D_5ji5u")
+
+[node name="Prato_4" type="CSGBox3D" parent="EcoLayers/Eco_Mesa" unique_id=1686338691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.631046, 0.81, -5.0996733)
+collision_mask = 0
+size = Vector3(0.22, 0.012, 0.22)
+material = SubResource("StandardMaterial3D_q8yul")
+
+[node name="Luz_Mesa" type="OmniLight3D" parent="EcoLayers/Eco_Mesa" unique_id=532789731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 2.2, -6)
+light_color = Color(1, 0.8117647, 0.5411765, 1)
+light_energy = 2.2
+omni_range = 5.5
+
+[node name="Eco_Monitores" type="Node3D" parent="EcoLayers" unique_id=488768392]
+
+[node name="Monitor_0" type="Node3D" parent="EcoLayers/Eco_Monitores" unique_id=1616225557]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7.2, 1.9, -31)
 
-[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=881158167]
+[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=587520991]
 collision_mask = 0
 size = Vector3(0.62, 0.46, 0.18)
-material = SubResource("StandardMaterial3D_s3m0t")
+material = SubResource("StandardMaterial3D_nu3fj")
 
-[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1863129397]
+[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1992020864]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.095)
 collision_mask = 0
 size = Vector3(0.52, 0.34, 0.01)
-material = SubResource("StandardMaterial3D_2amgv")
+material = SubResource("StandardMaterial3D_nn7da")
 
-[node name="Traco_0" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=978844756]
+[node name="Traco_0" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=560484942]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.02, 0.102)
 collision_mask = 0
 size = Vector3(0.14, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_1" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1838186770]
+[node name="Traco_1" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1087399962]
 transform = Transform3D(0.37139064, -0.9284767, 0, 0.9284767, 0.37139064, 0, 0, 0, 1, -0.06, 0.07, 0.102)
 collision_mask = 0
 size = Vector3(0.1077033, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_2" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=99557443]
+[node name="Traco_2" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1319946038]
 transform = Transform3D(0.20601049, 0.9785498, 0, -0.9785498, 0.20601049, 0, 0, 0, 1, -0.02, 0.024999999, 0.102)
 collision_mask = 0
 size = Vector3(0.19416489, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_3" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=543604401]
+[node name="Traco_3" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1970593274]
 transform = Transform3D(0.27472112, -0.96152395, 0, 0.96152395, 0.27472112, 0, 0, 0, 1, 0.02, -1.4156103e-09, 0.102)
 collision_mask = 0
 size = Vector3(0.1456022, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_4" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=782961451]
+[node name="Traco_4" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1951145568]
 transform = Transform3D(0.62469506, 0.7808688, 0, -0.7808688, 0.62469506, 0, 0, 0, 1, 0.06, 0.045, 0.102)
 collision_mask = 0
 size = Vector3(0.06403124, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_5" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1767313217]
+[node name="Traco_5" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_0" unique_id=1882119145]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.02, 0.102)
 collision_mask = 0
 size = Vector3(0.14, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Monitor_1" type="Node3D" parent="EcoLayers/Eco_Monitores" unique_id=63628864]
+[node name="Monitor_1" type="Node3D" parent="EcoLayers/Eco_Monitores" unique_id=1263002127]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7.2, 1.9, -37)
 
-[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_1" unique_id=1940627022]
+[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_1" unique_id=506669489]
 collision_mask = 0
 size = Vector3(0.62, 0.46, 0.18)
-material = SubResource("StandardMaterial3D_s3m0t")
+material = SubResource("StandardMaterial3D_nu3fj")
 
-[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_1" unique_id=777926298]
+[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_1" unique_id=215453801]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.095)
 collision_mask = 0
 size = Vector3(0.52, 0.34, 0.01)
-material = SubResource("StandardMaterial3D_2amgv")
+material = SubResource("StandardMaterial3D_nn7da")
 
-[node name="Traco_Plano" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_1" unique_id=378832388]
+[node name="Traco_Plano" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_1" unique_id=1378064730]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.102)
 collision_mask = 0
 size = Vector3(0.44, 0.008, 0.004)
-material = SubResource("StandardMaterial3D_s3m0t")
+material = SubResource("StandardMaterial3D_nu3fj")
 
-[node name="Monitor_2" type="Node3D" parent="EcoLayers/Eco_Monitores" unique_id=442627240]
+[node name="Monitor_2" type="Node3D" parent="EcoLayers/Eco_Monitores" unique_id=299796190]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.2, 1.9, -34)
 
-[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=2087629334]
+[node name="Corpo" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1998169526]
 collision_mask = 0
 size = Vector3(0.62, 0.46, 0.18)
-material = SubResource("StandardMaterial3D_s3m0t")
+material = SubResource("StandardMaterial3D_nu3fj")
 
-[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=977223774]
+[node name="Tela" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=2064743238]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.095)
 collision_mask = 0
 size = Vector3(0.52, 0.34, 0.01)
-material = SubResource("StandardMaterial3D_2amgv")
+material = SubResource("StandardMaterial3D_nn7da")
 
-[node name="Traco_0" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1884750718]
+[node name="Traco_0" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1221715151]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.02, 0.102)
 collision_mask = 0
 size = Vector3(0.14, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_1" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=472010839]
+[node name="Traco_1" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1890370802]
 transform = Transform3D(0.37139064, -0.9284767, 0, 0.9284767, 0.37139064, 0, 0, 0, 1, -0.06, 0.07, 0.102)
 collision_mask = 0
 size = Vector3(0.1077033, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_2" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=150816263]
+[node name="Traco_2" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1898134227]
 transform = Transform3D(0.20601049, 0.9785498, 0, -0.9785498, 0.20601049, 0, 0, 0, 1, -0.02, 0.024999999, 0.102)
 collision_mask = 0
 size = Vector3(0.19416489, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_3" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=647535984]
+[node name="Traco_3" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1344098007]
 transform = Transform3D(0.27472112, -0.96152395, 0, 0.96152395, 0.27472112, 0, 0, 0, 1, 0.02, -1.4156103e-09, 0.102)
 collision_mask = 0
 size = Vector3(0.1456022, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_4" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=649777393]
+[node name="Traco_4" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1989858612]
 transform = Transform3D(0.62469506, 0.7808688, 0, -0.7808688, 0.62469506, 0, 0, 0, 1, 0.06, 0.045, 0.102)
 collision_mask = 0
 size = Vector3(0.06403124, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Traco_5" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1262534006]
+[node name="Traco_5" type="CSGBox3D" parent="EcoLayers/Eco_Monitores/Monitor_2" unique_id=1587003954]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.02, 0.102)
 collision_mask = 0
 size = Vector3(0.14, 0.012, 0.004)
-material = SubResource("StandardMaterial3D_fltoa")
+material = SubResource("StandardMaterial3D_35ygd")
 
-[node name="Resonance" type="Node3D" parent="." unique_id=241838158]
+[node name="Resonance" type="Node3D" parent="." unique_id=909220965]
 
-[node name="Res_ParedeHospital" type="Node3D" parent="Resonance" unique_id=677240231]
+[node name="Res_MesaGuardada" type="Node3D" parent="Resonance" unique_id=1635458959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 1, -6)
+script = ExtResource("6_www22")
+data = SubResource("Resource_vis10")
+echo_nodes = Array[NodePath]([NodePath("../../EcoLayers/Eco_Mesa")])
+
+[node name="EchoAudio" type="AudioStreamPlayer3D" parent="Resonance/Res_MesaGuardada" unique_id=1744765754]
+
+[node name="Seq_AssentoGuardado" type="Node" parent="Resonance" unique_id=2014935352]
+script = ExtResource("8_btxmw")
+target = NodePath("../Res_MesaGuardada")
+entry = ExtResource("9_kjail")
+
+[node name="Res_ParedeHospital" type="Node3D" parent="Resonance" unique_id=2030521704]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 2, -19)
-script = ExtResource("6_8d0br")
-data = SubResource("Resource_88dor")
+script = ExtResource("6_www22")
+data = SubResource("Resource_x85hq")
 veil_nodes = Array[NodePath]([NodePath("../../Geometry/B_Corredor/EcoWall"), NodePath("../../Geometry/B_Corredor/EcoWall_Fissura")])
 echo_nodes = Array[NodePath]([NodePath("../../EcoLayers/Eco_Hospital")])
 echo_sound = &"monitor_beep"
 
-[node name="EchoAudio" type="AudioStreamPlayer3D" parent="Resonance/Res_ParedeHospital" unique_id=1204515602]
+[node name="EchoAudio" type="AudioStreamPlayer3D" parent="Resonance/Res_ParedeHospital" unique_id=1695473340]
 
-[node name="Res_MonitoresSala" type="Node3D" parent="Resonance" unique_id=1174763558]
+[node name="Res_MonitoresSala" type="Node3D" parent="Resonance" unique_id=1851061836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -34)
-script = ExtResource("6_8d0br")
-data = SubResource("Resource_5ks5l")
+script = ExtResource("6_www22")
+data = SubResource("Resource_e01yg")
 echo_nodes = Array[NodePath]([NodePath("../../EcoLayers/Eco_Monitores")])
 echo_sound = &"monitor_beep"
 
-[node name="EchoAudio" type="AudioStreamPlayer3D" parent="Resonance/Res_MonitoresSala" unique_id=1345829371]
+[node name="EchoAudio" type="AudioStreamPlayer3D" parent="Resonance/Res_MonitoresSala" unique_id=1658599775]
 
-[node name="DicaRessonancia" type="Area3D" parent="Resonance" unique_id=1548613090]
+[node name="DicaRessonancia" type="Area3D" parent="Resonance" unique_id=1674368860]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -18.5)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("8_www22")
+script = ExtResource("10_u41eg")
 hint_key = "ui.resonance.hint"
 action = &"resonance"
 
-[node name="Shape" type="CollisionShape3D" parent="Resonance/DicaRessonancia" unique_id=389326039]
-shape = SubResource("BoxShape3D_hb4tg")
+[node name="Shape" type="CollisionShape3D" parent="Resonance/DicaRessonancia" unique_id=1543760369]
+shape = SubResource("BoxShape3D_tkgbr")

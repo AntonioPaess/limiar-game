@@ -12,8 +12,6 @@ ui.prompt.format,[%s] %s
 ui.click_to_play,Clique para jogar
 ch1.proto.door.open,Abrir porta
 ch1.proto.door.locked,A porta não cede.
-ch1.proto.candle.examine,Examinar
-ch1.proto.candle.text,"Uma vela apagada. A cera ainda está morna."
 ch1.proto.exit.reached,Fim do trecho cinza.
 ui.pause.resonance_intensity,Intensidade do efeito de Ressonância
 ui.resonance.ready,Ressonância
@@ -32,3 +30,21 @@ ui.pause.hitstop,Pausa de impacto nos golpes
 ch1.proto.intervention.no_target,Nada responde.
 ch1.proto.intervention.no_pulse,Pulso insuficiente.
 ch1.proto.vigia.blocked,[metal contra o escudo]
+ui.journal.title,Diário de Ecos
+ui.journal.empty,Nada registrado ainda.
+ui.journal.observations,Observações
+ui.journal.hypotheses,Hipóteses
+ui.journal.transcript,O que ouvi
+ui.journal.close,[%s] Fechar
+ui.journal.new_entry,Novo registro no Diário [%s]
+ch1.area.atrio,Átrio
+ch1.eco.foto.examinar,Examinar a foto
+ch1.eco.foto.texto,Uma foto de uma mesa cheia. Só uma cadeira está vazia.
+ch1.eco.assento.titulo,A cadeira guardada
+ch1.eco.assento.obs1,"Uma mesa cheia. Uma cadeira vazia. Alguém riu."
+ch1.eco.assento.obs2,Alguém guardou um lugar para mim.
+ch1.eco.assento.hip1,Alguém esperava por mim?
+ch1.eco.assento.hip2,"Por que a Catedral guarda este momento, e não uma dor?"
+ch1.eco.assento.legenda_riso,[risos abafados ao redor de uma mesa]
+ch1.eco.assento.legenda_voz,Voz: «Guardei seu lugar.»
+ch1.eco.assento.voz,Guardei seu lugar.

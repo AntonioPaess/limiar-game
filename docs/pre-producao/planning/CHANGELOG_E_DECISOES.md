@@ -63,6 +63,18 @@ Consequências e riscos: sem navmesh o Vigia pode enroscar em colunas; tempos e 
 Como validar: playtest G1 (mortes por encontro, motivo percebido, se alguém usa a Intervenção sem ser instruído).
 Critério de revisão: jogadores morrerem sem entender por quê; ninguém descobrir a Intervenção; Vigia travado em geometria.
 
+### ADR-007 — Primeiro Eco narrativo: "A cadeira guardada" e o Diário de Ecos
+
+Data: 14/11/2026
+Status: proposta escolhida por delegação do criador ("quero que você decida"); não é cânone de história
+Contexto: LIM-040 pede um Eco com frase + objeto, sem lore não aprovado, que deixe um detalhe humano e uma pergunta.
+Opções consideradas: (A) foto incompleta, (B) gesto sem recompensa, (C) promessa interrompida, (D) cadeira guardada — avaliadas por um council de 5 conselheiros + presidente (`docs/decisions/council-eco-lim040/session.md`).
+Decisão: (D) no átrio, antes da fissura do hospital: foto de mesa cheia com uma cadeira vazia; a Leitura revela a mesa com quatro presenças âmbar sem rosto e a cadeira da cabeceira vazia; legendas "[risos abafados ao redor de uma mesa]" e "Voz: «Guardei seu lugar.»" ("seu", neutro, em vez de "teu", que marcaria região/intimidade não aprovada). Diário de Ecos com observações, hipóteses e transcrição. Examinar a foto ensina a Ressonância antes do hospital.
+Motivo: calor antes do frio clínico (≥25% ternura), pergunta aberta ("de quem é a voz?") que nenhuma decisão futura sobre o acidente contradiz.
+Consequências e riscos: cadeira vazia pode ser lida como luto; sem voz gravada o efeito depende da legenda; o átrio pode ser cedo demais. Um teste automático barra palavras de lore aberto nos textos do Eco.
+Como validar: playtest (council) — passa se ≥3 de 5 jogadores citarem a cadeira ou a voz e perguntarem sozinhos de quem era.
+Critério de revisão: criador preferir "teu"; leitura majoritária como luto; ninguém lembrar o Eco.
+
 ### Template de novas decisões
 
 ```

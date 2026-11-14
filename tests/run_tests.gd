@@ -15,7 +15,7 @@ func _initialize() -> void:
 	# unitários (sem cena)
 	for t: String in ["test_input_actions_exist", "test_no_key_conflicts", "test_velocity_accelerates_bounded",
 			"test_velocity_decelerates_to_zero", "test_pitch_clamped", "test_fov_clamped",
-			"test_interactable_once", "test_translations_loaded"]:
+			"test_interactable_once", "test_translations_loaded", "test_eco_texts_respect_canon"]:
 		_run(t)
 	# integração (cena principal)
 	for t: String in ["test_spawn_on_floor", "test_walk_forward", "test_interaction_range_and_door",
@@ -24,7 +24,8 @@ func _initialize() -> void:
 			"test_exit_trigger_sets_flag", "test_pause_blocks_input",
 			"test_attack_damages_once_from_behind", "test_shield_blocks_front", "test_guard_parry_and_block",
 			"test_dodge_iframes_and_walls", "test_vigia_telegraphs_then_hits", "test_vigia_beatable_without_parry",
-			"test_intervention_rules", "test_death_respawn_keeps_progress", "test_hit_stop_restores_time"]:
+			"test_intervention_rules", "test_death_respawn_keeps_progress", "test_hit_stop_restores_time",
+			"test_eco_photo_examine_and_hint", "test_eco_reveal_sequence_and_journal", "test_journal_shows_entry"]:
 		await _run_async(t)
 	print("\n[tests] %d ok, %d falha(s)" % [passed, failed])
 	quit(1 if failed > 0 else 0)
@@ -105,7 +106,7 @@ func _place(player: FirstPersonPlayer, pos: Vector3, yaw_deg: float) -> void:
 
 func test_input_actions_exist() -> bool:
 	for a in ["move_forward", "move_back", "move_left", "move_right", "look_up", "look_down", "look_left",
-			"look_right", "sprint", "interact", "attack_light", "guard", "dodge", "resonance", "pause", "debug_overlay"]:
+			"look_right", "sprint", "interact", "attack_light", "guard", "dodge", "resonance", "pause", "journal", "debug_overlay"]:
 		check(InputMap.has_action(a) and InputMap.action_get_events(a).size() > 0, "ação %s mapeada" % a)
 	return true
 
@@ -572,6 +573,107 @@ func test_hit_stop_restores_time() -> bool:
 	check(is_equal_approx(Engine.time_scale, 1.0), "tempo volta a 1.0 depois de hit-stops sobrepostos")
 	main.player.settings.hitstop_enabled = false
 	Engine.time_scale = 1.0
+	main.queue_free()
+	await process_frame
+	return true
+
+
+# --- Eco narrativo e Diário (LIM-040, NAR-01) ------------------------------------
+
+## Os textos do Eco não podem afirmar lore aberto (acidente, relações, motivo da ausência) nem soar como cobrança.
+func test_eco_texts_respect_canon() -> bool:
+	var entry: EcoEntry = load("res://game/data/narrative/ch1_assento_guardado.tres")
+	var keys: Array[String] = []
+	keys.append_array(entry.observation_keys)
+	keys.append_array(entry.hypothesis_keys)
+	keys.append_array(entry.transcript_keys)
+	keys.append_array([entry.title_key, "ch1.eco.foto.texto", "ch1.eco.assento.voz"])
+	var forbidden := ["acidente", "carro", "hospital", "coma", "morte", "morre", "morto", "mãe", "pai", "irmã",
+		"irmão", "esposa", "marido", "filho", "filha", "namorad", "avó", "avô", "prometeu", "devia", "culpa",
+		"atrasad", "abandon"]
+	var hits: Array[String] = []
+	for k in keys:
+		var t := TranslationServer.translate(k).to_lower()
+		check(t != k.to_lower(), "chave %s tem texto" % k)
+		for w in forbidden:
+			if t.contains(w):
+				hits.append("%s → %s" % [k, w])
+	check(hits.is_empty(), "nenhuma palavra proibida nos textos do Eco %s" % [hits])
+	return true
+
+
+func test_eco_photo_examine_and_hint() -> bool:
+	var main := await _load_main()
+	var interaction: PlayerInteraction = main.player.get_node("PlayerInteraction")
+	_place(main.player, Vector3(2.4, 0.05, -4.6), 0.0)  # de frente para o pedestal
+	main.player.head.rotation.x = deg_to_rad(-25)
+	await _frames(5)
+	check(interaction.current_target != null and interaction.current_target.name == "Photo_Pedestal",
+		"mira no pedestal foca o porta-retratos")
+	check(main.hud.current_prompt().contains("Examinar a foto"), "prompt: '%s'" % main.hud.current_prompt())
+	check(interaction.try_interact(), "examinar a foto")
+	check(main.hud.current_message() == "Uma foto de uma mesa cheia. Só uma cadeira está vazia.",
+		"texto da foto no Véu: '%s'" % main.hud.current_message())
+	check(main.hud.current_hint().contains("Ressonância"), "examinar sem nunca ter lido sugere a Ressonância")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_eco_reveal_sequence_and_journal() -> bool:
+	var main := await _load_main()
+	var res: PlayerResonance = main.player.get_node("PlayerResonance")
+	var target: ResonanceTarget = main.world.get_node("Resonance/Res_MesaGuardada")
+	var seq: EcoSequence = main.world.get_node("Resonance/Seq_AssentoGuardado")
+	var mesa: Node3D = main.world.get_node("EcoLayers/Eco_Mesa")
+	var captions: Array[String] = []
+	var found := [0]
+	seq.caption.connect(func(t: String) -> void: captions.append(t))
+	seq.discovered.connect(func(_e: EcoEntry) -> void: found[0] += 1)
+	check(not mesa.visible, "mesa do Eco escondida no Véu")
+	check(main.world.get_node("EcoLayers/Eco_Mesa/Cadeira_4") != null and \
+		not main.world.has_node("EcoLayers/Eco_Mesa/Presenca_4"), "a cadeira da cabeceira não tem presença")
+	_place(main.player, Vector3(2.4, 0.05, -4.6), -60.0)
+	await _frames(3)
+	res.try_read()
+	check(target.is_revealed and mesa.visible, "Leitura revela a mesa")
+	await create_timer(3.8).timeout
+	check(captions.size() == 2, "duas legendas (%d)" % captions.size())
+	if captions.size() == 2:
+		check(captions[0] == "[risos abafados ao redor de uma mesa]", "1ª legenda: riso")
+		check(captions[1] == "Voz: «Guardei seu lugar.»", "2ª legenda: a voz")
+	check(found[0] == 1 and game_state.has_memory(&"ch1.echo.assento_guardado"), "Eco entra no Diário")
+	check(game_state.has_flag(&"ch1.echo.assento_guardado"), "flag do Eco gravada")
+	check(main.hud.current_hint().contains("Diário"), "aviso de novo registro: '%s'" % main.hud.current_hint())
+	# rever a cena: toca de novo, mas não registra outra vez
+	res._process(10.0)
+	res._process(10.0)
+	target._process(10.0)
+	res.try_read()
+	await create_timer(3.8).timeout
+	check(seq.plays == 2 and found[0] == 1 and game_state.journal().size() == 1,
+		"rever o Eco não duplica registro nem evento (NAR-01)")
+	main.queue_free()
+	await process_frame
+	return true
+
+
+func test_journal_shows_entry() -> bool:
+	var main := await _load_main()
+	main.journal.open()
+	check(main.journal.is_open() and paused, "Diário abre e pausa")
+	check(main.journal.current_text().contains("Nada registrado"), "Diário vazio avisa")
+	main.journal.close()
+	game_state.discover_memory(load("res://game/data/narrative/ch1_assento_guardado.tres"))
+	main.journal.open()
+	var t := main.journal.current_text()
+	check(main.journal.entry_count() == 1, "1 registro listado")
+	check(t.contains("Observações") and t.contains("Alguém guardou um lugar para mim."), "seção de observações")
+	check(t.contains("Hipóteses") and t.contains("Alguém esperava por mim?"), "seção de hipóteses, separada")
+	check(t.contains("Guardei seu lugar."), "transcrição da voz revisável")
+	check(t.contains("Átrio"), "área simbólica em vez de data")
+	main.journal.close()
+	check(not paused and main.player.input_enabled, "fechar devolve o jogo")
 	main.queue_free()
 	await process_frame
 	return true

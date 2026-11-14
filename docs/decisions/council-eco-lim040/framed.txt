@@ -1,0 +1,26 @@
+DECISION: Which first narrative "Eco" (memory fragment) should the grey-box prototype of LIMIAR ship (backlog item LIM-040)?
+
+CONTEXT
+- LIMIAR is an indie first-person dark-fantasy psychological game. A man, after an accident, is in a (fictional) coma and wakes inside the "Catedral dos Arrependimentos" (Cathedral of Regrets), a gothic world built from his memories.
+- Core mechanic "Ressonância": tapping R does a free "Leitura" (Reading) that, for a few seconds, reveals the "Eco" — anachronistic fragments of real-world memory — layered over the "Véu" (the fantasy world).
+- Already in the prototype: a crack in a corridor wall that, when Read, reveals a clinical room (hospital bed, heart monitor) with a sound caption; a candle puzzle in the combat gallery; one enemy (the Vigia, a shield-bearing guardian). The grey level is: átrio (has a candle on a pedestal the player can examine) → corridor (crack/clinical room) → checkpoint → combat gallery (Vigia + 3 candelabra + locked door) → small exit room.
+- The prototype is 10–15 minutes and exists to validate that the core loop works before any art or full chapter (target later: 4 chapters of 2–3 h).
+
+HARD REQUIREMENTS (from the creator-approved design documents)
+- LIM-040: one short phrase/audio + one visual object. It must NOT reveal unapproved lore. Explicitly open and NOT to be invented: what happened in the accident, who was present, the protagonist's real relationships and history, and the ending. Open items are marked [LORE_TBD].
+- Finding it sets a flag and updates the "Diário de Ecos" (journal), which keeps OBSERVATIONS separate from HYPOTHESES (good: "Uma voz que não reconheço"; forbidden: "Quem dirigia o carro"). The memory must be re-viewable later.
+- Narrative rules: at least 25% of big emotional beats are joy, tenderness, beauty, humor or hope; every accusation mixes a partial truth with an unfair conclusion; philosophy through dilemmas, never lectures; themes are kindness without reward, presence, living now, pursuing dreams without postponing life, limits of control; no real people or pets, not autobiography; the coma is never "won" by overcoming trauma.
+- Chapter I's question: "What is actually my responsibility?" Its local lie: "a person only deserves to leave after keeping every promise."
+- Prototype success criteria: the player finishes remembering a HUMAN detail (not just a visual effect) and can say which mystery they want to investigate next.
+
+CANDIDATES (hybrids allowed)
+(A) The incomplete photo — a group photograph; Reading reveals that one person is missing and a phrase that was absent before. This is the design document's own example. Strong mystery, but it brushes against a CANDIDATE (not canon) end-of-chapter reveal about "a second presence removed from the memories" of the accident.
+(B) The unrewarded gesture — an Eco of the protagonist helping a stranger (e.g. sharing an umbrella), with a phrase of thanks. Core theme, warm, but weak mystery.
+(C) The interrupted promise — a note saying "volto no domingo" ("back on Sunday") and a reproaching voice. Pure guilt; pulls toward real relationships, which are open.
+(D) The saved seat — a photo of a full table with one empty chair; Reading brings laughter and a voice saying "guardei teu lugar" ("I saved your seat"). Human detail plus presence/bonds plus a question (whose voice? why was he absent?) without touching the accident.
+
+WHAT IS AT STAKE
+This is the player's first narrative memory and the main test of whether the prototype leaves a human detail and a mystery in the player's mind. A wrong choice either invents lore the creator has not approved, feels like generic sad-game exposition, or produces no curiosity.
+
+DELIVERABLE EXPECTED FROM THE DECISION
+The chosen Eco: concept, the visual object, the exact phrase in Brazilian Portuguese, where it sits in the grey level, what the journal records as observation vs hypothesis, what must NOT be said, and the main risks.

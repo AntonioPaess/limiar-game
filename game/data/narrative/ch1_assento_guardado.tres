@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EcoEntry" format=3]
+
+[ext_resource type="Script" path="res://game/narrative/eco_entry.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ch1.echo.assento_guardado"
+title_key = "ch1.eco.assento.titulo"
+observation_keys = Array[String](["ch1.eco.assento.obs1", "ch1.eco.assento.obs2"])
+hypothesis_keys = Array[String](["ch1.eco.assento.hip1", "ch1.eco.assento.hip2"])
+transcript_keys = Array[String](["ch1.eco.assento.legenda_riso", "ch1.eco.assento.legenda_voz"])
+area_key = "ch1.area.atrio"
