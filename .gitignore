@@ -11,3 +11,5 @@ addons/.godot_mcp_toolkit_update/
 # Blender
 *.blend1
 *.blend@
+# Arena (torneio de sub-agentes): registro local
+.arena/
